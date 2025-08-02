@@ -1,12 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-function Card({ theme, title, date }) {
+function Card({ theme, title, date, status }) {
+  const isDone = status === "Готово";
   return (
     <div className="cards__item">
-      <div className="cards__card card">
+      <div className={`cards__card card ${isDone ? 'done' : ''}`}>
         <div className="card__group">
           <div className={`card__theme _${theme}`}>
-            <p className={`_${theme}`}>{title}</p>
+            <p>{title}</p>
           </div>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">
