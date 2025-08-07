@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { Container } from '../../App.styled'
 import Card from '../Card/Card'
 import Column from '../Column/Column'
+import {
+    LoadingContainer,
+    MainBlock,
+    MainContainer,
+    MainContent
+} from './Main.styled'
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true)
@@ -9,51 +16,59 @@ function Main() {
     // Имитация загрузки данных
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2000) // Загрузка длится 2 секунды
+    }, 2000) // Загрузка 2 секунды
 
     return () => clearTimeout(timer)
   }, [])
 
+  if (isLoading) {
+    return (
+      <MainContainer>
+        <Container>
+          <MainBlock>
+            <LoadingContainer>
+              Данные загружаются
+            </LoadingContainer>
+          </MainBlock>
+        </Container>
+      </MainContainer>
+    )
+  }
+
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          {isLoading ? (
-            <div className="loading">
-              <p>Данные загружаются</p>
-            </div>
-          ) : (
-            <div className="main__content">
-              <Column title="Без статуса">
-                <Card key={1} theme="orange" title="Web Design" date="30.10.23" />
-                <Card key={2} theme="green" title="Research" date="30.10.23" />
-                <Card key={3} theme="orange" title="Web Design" date="30.10.23" />
-                <Card key={4} theme="purple" title="Copywriting" date="30.10.23" />
-                <Card key={5} theme="orange" title="Web Design" date="30.10.23" />
-              </Column>
-              
-              <Column title="Нужно сделать">
-                <Card key={6} theme="green" title="Research" date="30.10.23" />
-              </Column>
-              
-              <Column title="В работе">
-                <Card key={7} theme="green" title="Research" date="30.10.23" />
-                <Card key={8} theme="purple" title="Copywriting" date="30.10.23" />
-                <Card key={9} theme="orange" title="Web Design" date="30.10.23" />
-              </Column>
-              
-              <Column title="Тестирование">
-                <Card key={10} theme="green" title="Research" date="30.10.23" />
-              </Column>
-              
-              <Column title="Готово">
-                <Card key={11} theme="green" title="Research" date="30.10.23" status="Готово" />
-              </Column>
-            </div>
-          )}
-        </div>
-      </div>
-    </main>
+    <MainContainer>
+      <Container>
+        <MainBlock>
+          <MainContent>
+            <Column title="Без статуса">
+              <Card theme="orange" title="Web Design" date="30.10.23" />
+              <Card theme="green" title="Research" date="30.10.23" />
+              <Card theme="orange" title="Web Design" date="30.10.23" />
+              <Card theme="purple" title="Copywriting" date="30.10.23" />
+              <Card theme="orange" title="Web Design" date="30.10.23" />
+            </Column>
+            
+            <Column title="Нужно сделать">
+              <Card theme="green" title="Research" date="30.10.23" />
+            </Column>
+            
+            <Column title="В работе">
+              <Card theme="green" title="Research" date="30.10.23" />
+              <Card theme="purple" title="Copywriting" date="30.10.23" />
+              <Card theme="orange" title="Web Design" date="30.10.23" />
+            </Column>
+            
+            <Column title="Тестирование">
+              <Card theme="green" title="Research" date="30.10.23" />
+            </Column>
+            
+            <Column title="Готово">
+              <Card theme="green" title="Research" date="30.10.23" />
+            </Column>
+          </MainContent>
+        </MainBlock>
+      </Container>
+    </MainContainer>
   )
 }
 

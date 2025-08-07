@@ -1,27 +1,49 @@
 import React from 'react'
+import {
+    PopExit,
+    PopExitBlock,
+    PopExitButtonNo,
+    PopExitButtonYes,
+    PopExitContainer,
+    PopExitForm,
+    PopExitTitle
+} from './PopExit.styled'
 
-function PopExit() {
+function PopExitComponent({ isOpen, onClose }) {
+  const exitPopupStyle = {
+    display: isOpen ? 'block' : 'none'
+  }
+
+  const handleExitYes = (e) => {
+    e.preventDefault()
+    console.log('Выход из аккаунта')
+    onClose()
+  }
+
+  const handleExitNo = (e) => {
+    e.preventDefault()
+    onClose()
+  }
+
   return (
-    <div className="pop-exit" id="popExit">
-      <div className="pop-exit__container">
-        <div className="pop-exit__block">
-          <div className="pop-exit__ttl">
+    <PopExit id="popExit" style={exitPopupStyle}>
+      <PopExitContainer>
+        <PopExitBlock>
+          <PopExitTitle>
             <h2>Выйти из аккаунта?</h2>
-          </div>
-          <form className="pop-exit__form" id="formExit" action="#">
-            <div className="pop-exit__form-group">
-              <button className="pop-exit__exit-yes _hover01" id="exitYes">
-                <a href="modal/signin.html">Да, выйти</a>
-              </button>
-              <button className="pop-exit__exit-no _hover03" id="exitNo">
-                <a href="main.html">Нет, остаться</a>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          </PopExitTitle>
+          <PopExitForm id="formExit" action="#">
+            <PopExitButtonYes className="_hover01" id="exitYes" onClick={handleExitYes}>
+              <a href="modal/signin.html">Да, выйти</a>
+            </PopExitButtonYes>
+            <PopExitButtonNo className="_hover03" id="exitNo" onClick={handleExitNo}>
+              <a href="main.html">Нет, остаться</a>
+            </PopExitButtonNo>
+          </PopExitForm>
+        </PopExitBlock>
+      </PopExitContainer>
+    </PopExit>
   )
 }
 
-export default PopExit 
+export default PopExitComponent 
