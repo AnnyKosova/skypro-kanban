@@ -5,9 +5,9 @@ import {
     PopUserSetMail,
     PopUserSetName,
     PopUserSetTheme
-} from './PopUser.styled'
+} from './PopUser.styled.js'
 
-function PopUser({ isOpen, onExitClick }) {
+function PopUser({ isOpen, onExitClick, user }) {
   const popupStyle = {
     display: isOpen ? 'block' : 'none',
     position: 'absolute',
@@ -29,16 +29,18 @@ function PopUser({ isOpen, onExitClick }) {
     onExitClick()
   }
 
+  if (!user) return null
+
   return (
     <PopUserSet id="user-set-target" style={popupStyle}>
-      <PopUserSetName>Ivan Ivanov</PopUserSetName>
-      <PopUserSetMail>ivan.ivanov@gmail.com</PopUserSetMail>
+      <PopUserSetName>{user.name}</PopUserSetName>
+      <PopUserSetMail>{user.email}</PopUserSetMail>
       <PopUserSetTheme>
         <p>Темная тема</p>
         <input type="checkbox" className="checkbox" name="checkbox" />
       </PopUserSetTheme>
       <PopUserSetButton type="button" className="_hover03" onClick={handleExitClick}>
-        <a href="#popExit">Выйти</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>Выйти</a>
       </PopUserSetButton>
     </PopUserSet>
   )
