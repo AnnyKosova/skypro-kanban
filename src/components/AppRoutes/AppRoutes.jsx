@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AddTaskPage from '../../pages/AddTaskPage'
 import EditTaskPage from '../../pages/EditTaskPage'
+import ExitPage from '../../pages/ExitPage'
 import HomePage from '../../pages/HomePage'
 import LoginPage from '../../pages/LoginPage'
 import NotFoundPage from '../../pages/NotFoundPage'
@@ -37,7 +38,7 @@ function AppRoutes() {
       } />
       <Route path="/exit" element={
         <ProtectedRoute>
-          <HomePage />
+          <ExitPage />
         </ProtectedRoute>
       } />
       

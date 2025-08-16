@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Container } from '../../App.styled'
 import PopUser from '../popups/PopUser/PopUser'
 import {
@@ -13,6 +13,7 @@ import {
 
 function Header({ onExitClick, user, onNewTaskClick }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleUserClick = (e) => {
     e.preventDefault()
@@ -50,15 +51,15 @@ function Header({ onExitClick, user, onNewTaskClick }) {
           </HeaderLogo>
           <HeaderNav>
             <HeaderButton className="_hover01" id="btnMainNew" onClick={() => {
-              console.log('Header button clicked, calling onNewTaskClick')
-              onNewTaskClick()
+              console.log('Header button clicked, navigating to /add-task')
+              navigate('/add-task')
             }}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </HeaderButton>
             <HeaderUser href="#user-set-target" className="_hover02" onClick={handleUserClick}>
               {user ? user.name : 'Гость'}
             </HeaderUser>
-            <PopUser isOpen={isUserPopupOpen} onExitClick={onExitClick} user={user} />
+            <PopUser isOpen={isUserPopupOpen} onExitClick={() => navigate('/exit')} user={user} />
           </HeaderNav>
         </HeaderBlock>
       </Container>			
