@@ -13,10 +13,9 @@ function Main() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Имитация загрузки данных
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2000) // Загрузка 2 секунды
+    }, 2000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -41,29 +40,29 @@ function Main() {
         <MainBlock>
           <MainContent>
             <Column title="Без статуса">
-              <Card theme="orange" title="Web Design" date="30.10.23" />
-              <Card theme="green" title="Research" date="30.10.23" />
-              <Card theme="orange" title="Web Design" date="30.10.23" />
-              <Card theme="purple" title="Copywriting" date="30.10.23" />
-              <Card theme="orange" title="Web Design" date="30.10.23" />
+              <Card theme="orange" title="Web Design" date="30.10.23" taskId="1" />
+              <Card theme="green" title="Research" date="30.10.23" taskId="2" />
+              <Card theme="orange" title="Web Design" date="30.10.23" taskId="3" />
+              <Card theme="purple" title="Copywriting" date="30.10.23" taskId="4" />
+              <Card theme="orange" title="Web Design" date="30.10.23" taskId="5" />
             </Column>
             
             <Column title="Нужно сделать">
-              <Card theme="green" title="Research" date="30.10.23" />
+              <Card theme="green" title="Research" date="30.10.23" taskId="6" />
             </Column>
             
             <Column title="В работе">
-              <Card theme="green" title="Research" date="30.10.23" />
-              <Card theme="purple" title="Copywriting" date="30.10.23" />
-              <Card theme="orange" title="Web Design" date="30.10.23" />
+              <Card theme="green" title="Research" date="30.10.23" taskId="7" />
+              <Card theme="purple" title="Copywriting" date="30.10.23" taskId="8" />
+              <Card theme="orange" title="Web Design" date="30.10.23" taskId="9" />
             </Column>
             
             <Column title="Тестирование">
-              <Card theme="green" title="Research" date="30.10.23" />
+              <Card theme="green" title="Research" date="30.10.23" taskId="10" />
             </Column>
             
             <Column title="Готово">
-              <Card theme="green" title="Research" date="30.10.23" />
+              <Card theme="green" title="Research" date="30.10.23" taskId="11" />
             </Column>
           </MainContent>
         </MainBlock>

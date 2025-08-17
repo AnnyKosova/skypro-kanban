@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     CardButton,
     CardContainer,
@@ -10,24 +11,35 @@ import {
     CardTitle
 } from './Card.styled'
 
-function Card({ theme, title, date }) {
+function Card({ theme, title, date, taskId }) {
+  const navigate = useNavigate()
+
+  const handleCardClick = () => {
+    navigate(`/card/${taskId}`)
+  }
+
+  const handleEditClick = (e) => {
+    e.stopPropagation()
+    navigate(`/edit-task/${taskId}`)
+  }
+
   return (
-    <CardItem>
+    <CardItem onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <CardContainer>
         <CardGroup>
           <CardTheme className={`_${theme}`}>
             <p className={`_${theme}`}>{title}</p>
           </CardTheme>
-          <CardButton href="#popBrowse" target="_self">
+          <CardButton onClick={handleEditClick}>
             <div></div>
             <div></div>
             <div></div>
           </CardButton>
         </CardGroup>
         <CardContent>
-          <a href="" target="_blank">
-            <CardTitle>Название задачи</CardTitle>
-          </a>
+          <div>
+            <CardTitle>{title}</CardTitle>
+          </div>
           <CardDate>
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
               <g clipPath="url(#clip0_1_415)">

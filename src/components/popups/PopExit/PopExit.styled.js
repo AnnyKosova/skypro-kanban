@@ -28,11 +28,12 @@ export const PopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #FFFFFF;
-  max-width: 370px;
-  width: 100%;
+  width: 370px;
+  height: 180px;
+  box-sizing: border-box;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid rgba(212, 219, 229, 1);
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   
   @media only screen and (max-width: 375px) {
@@ -42,11 +43,13 @@ export const PopExitBlock = styled.div`
 
 export const PopExitTitle = styled.div`
   h2 {
-    text-align: center;
+    color: var(--Black / 90, rgba(0, 0, 0, 1));
+    font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 700;
-    line-height: 30px;
-    letter-spacing: -0.4px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: -2%;
+    text-align: center;
     margin-bottom: 20px;
   }
 `
@@ -65,27 +68,40 @@ export const PopExitForm = styled.form`
 export const PopExitButtonYes = styled.button`
   width: 153px;
   height: 30px;
-  background-color: #565EEF;
   border-radius: 4px;
-  border: none;
+  background-color: transparent;
+  border: 0.7px solid rgba(86, 94, 239, 1);
   outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  line-height: 21px;
   font-weight: 500;
-  letter-spacing: -0.14px;
-  color: #FFFFFF;
-  margin-right: 10px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: rgba(86, 94, 239, 1);
+  text-align: center;
+  margin-right: 7px;
+  transition: all 0.3s;
+  
+  &:hover {
+    background-color: rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
   
   a {
     width: 100%;
     height: 100%;
-    color: #FFFFFF;
+    color: rgba(86, 94, 239, 1);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
   }
   
   @media only screen and (max-width: 375px) {
@@ -99,26 +115,30 @@ export const PopExitButtonYes = styled.button`
 export const PopExitButtonNo = styled.button`
   width: 153px;
   height: 30px;
-  background-color: transparent;
+  box-sizing: border-box;
+  border: 0.7px solid rgba(86, 94, 239, 1);
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565EEF);
+  background-color: transparent;
   outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  line-height: 21px;
   font-weight: 500;
-  letter-spacing: -0.14px;
-  color: #FFFFFF;
+  line-height: 150%;
+  letter-spacing: -1%;
+  color: rgba(86, 94, 239, 1);
+  text-align: center;
   
   a {
     width: 100%;
     height: 100%;
-    color: #565EEF;
+    color: rgba(86, 94, 239, 1);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
   }
   
   @media only screen and (max-width: 375px) {

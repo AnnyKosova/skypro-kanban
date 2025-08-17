@@ -9,15 +9,16 @@ import {
     PopExitTitle
 } from './PopExit.styled'
 
-function PopExitComponent({ isOpen, onClose }) {
+function PopExitComponent({ isOpen, onClose, onLogout }) {
   const exitPopupStyle = {
     display: isOpen ? 'block' : 'none'
   }
 
   const handleExitYes = (e) => {
     e.preventDefault()
-    console.log('Выход из аккаунта')
-    onClose()
+    if (onLogout) {
+      onLogout()
+    }
   }
 
   const handleExitNo = (e) => {
@@ -34,10 +35,10 @@ function PopExitComponent({ isOpen, onClose }) {
           </PopExitTitle>
           <PopExitForm id="formExit" action="#">
             <PopExitButtonYes className="_hover01" id="exitYes" onClick={handleExitYes}>
-              <a href="modal/signin.html">Да, выйти</a>
+              <a href="#" onClick={(e) => e.preventDefault()}>Да, выйти</a>
             </PopExitButtonYes>
             <PopExitButtonNo className="_hover03" id="exitNo" onClick={handleExitNo}>
-              <a href="main.html">Нет, остаться</a>
+              <a href="#" onClick={(e) => e.preventDefault()}>Нет, остаться</a>
             </PopExitButtonNo>
           </PopExitForm>
         </PopExitBlock>
