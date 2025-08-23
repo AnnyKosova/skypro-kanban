@@ -444,6 +444,90 @@
   color: #FFFFFF;
 }
 
+/* Стили для статуса "Без статуса" - оба варианта классов */
+.status__theme--no-status._active,
+.status_theme--no-status._active,
+.status__theme--Без\ статуса._active,
+.status_theme--Без\ статуса._active {
+  background-color: rgba(148, 166, 190, 1) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(148, 166, 190, 1) !important;
+}
+
+.status__theme--no-status._active p,
+.status_theme--no-status._active p,
+.status__theme--Без\ статуса._active p,
+.status_theme--Без\ статуса._active p {
+  color: #FFFFFF !important;
+}
+
+
+
+/* Стили для кнопок действий - оба варианта классов */
+.btn-browse__edit:hover,
+.btn-browse_edit:hover,
+.btn-browse__delete:hover,
+.btn-browse_delete:hover,
+.btn-browse__close:hover,
+.btn-browse_close:hover,
+.btn-edit__edit:hover,
+.btn-edit_edit:hover,
+.btn-edit__delete:hover,
+.btn-edit_delete:hover,
+.btn-edit__close:hover,
+.btn-edit_close:hover {
+  background-color: #565EEF !important;
+  color: #FFFFFF !important;
+  border-color: #565EEF !important;
+}
+
+.btn-browse__edit:hover span,
+.btn-browse_edit:hover span,
+.btn-browse__delete:hover span,
+.btn-browse_delete:hover span,
+.btn-browse__close:hover span,
+.btn-browse_close:hover span,
+.btn-edit__edit:hover span,
+.btn-edit_edit:hover span,
+.btn-edit__delete:hover span,
+.btn-edit_delete:hover span,
+.btn-edit__close:hover span,
+.btn-edit_close:hover span {
+  color: #FFFFFF !important;
+}
+
+.btn-browse__edit:active,
+.btn-browse_edit:active,
+.btn-browse__delete:active,
+.btn-browse_delete:active,
+.btn-browse__close:active,
+.btn-browse_close:active,
+.btn-edit__edit:active,
+.btn-edit_edit:active,
+.btn-edit__delete:active,
+.btn-edit_delete:active,
+.btn-edit__close:active,
+.btn-edit_close:active {
+  background-color: #565EEF !important;
+  color: #FFFFFF !important;
+  border-color: #565EEF !important;
+}
+
+.btn-browse__edit:active span,
+.btn-browse_edit:active span,
+.btn-browse__delete:active span,
+.btn-browse_delete:active span,
+.btn-browse__close:active span,
+.btn-browse_close:active span,
+.btn-edit__edit:active span,
+.btn-edit_edit:active span,
+.btn-edit__delete:active span,
+.btn-edit_delete:active span,
+.btn-edit__close:active span,
+.btn-edit_close:active span {
+  color: #FFFFFF !important;
+}
+
 @media screen and (max-width: 660px) {
   .pop-new-card {
     top: 70px;
