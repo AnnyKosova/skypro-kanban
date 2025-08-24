@@ -1,15 +1,15 @@
-import { mockApi } from './mockApi'
+import { api } from './api'
 
 export const userService = {
   async getUsers() {
-    return mockApi.get('/user')
+    return api.get('/user')
   },
 
   async register(userData) {
-    return mockApi.post('/user', userData)
+    return api.post('/user', userData)
   },
 
   async login(credentials) {
-    return mockApi.post('/user/login', credentials)
+    return api.post('/user/login', credentials)
   }
 } 

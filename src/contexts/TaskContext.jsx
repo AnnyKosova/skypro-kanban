@@ -20,10 +20,8 @@ const TaskProvider = ({ children }) => {
 
   const fetchTasks = useCallback(async () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
-    console.log('TaskContext: fetchTasks called, user:', user)
     
     if (!user.token) {
-      console.log('TaskContext: No user token, setting empty tasks')
       setTasks([])
       setIsLoading(false)
       return
@@ -32,12 +30,9 @@ const TaskProvider = ({ children }) => {
     setIsLoading(true)
     setError(null)
     try {
-      console.log('TaskContext: Fetching tasks from API...')
       const response = await kanbanService.getTasks()
-      console.log('TaskContext: API response:', response)
       setTasks(response.tasks || [])
     } catch (err) {
-      console.error('TaskContext: Error fetching tasks:', err)
       setError(err.message)
     } finally {
       setIsLoading(false)

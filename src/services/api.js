@@ -13,8 +13,20 @@ const getAuthHeaders = () => {
 
 const handleResponse = async (response) => {
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
+    let errorMessage = `HTTP error! status: ${response.status}`
+    
+    try {
+      const errorData = await response.json()
+      if (errorData.message) {
+        errorMessage = errorData.message
+      } else if (errorData.error) {
+        errorMessage = errorData.error
+      }
+    } catch (e) {
+      // Если не удалось распарсить JSON, используем стандартное сообщение
+    }
+    
+    throw new Error(errorMessage)
   }
   return response.json()
 }
