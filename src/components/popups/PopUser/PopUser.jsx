@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../../../contexts/AuthContext'
 import {
     PopUserSet,
     PopUserSetButton,
@@ -8,6 +10,9 @@ import {
 } from './PopUser.styled.js'
 
 function PopUser({ isOpen, onExitClick, user }) {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+  
   const popupStyle = {
     display: isOpen ? 'block' : 'none',
     position: 'absolute',
@@ -26,7 +31,8 @@ function PopUser({ isOpen, onExitClick, user }) {
 
   const handleExitClick = (e) => {
     e.preventDefault()
-    onExitClick()
+    logout()
+    navigate('/login')
   }
 
   if (!user) return null

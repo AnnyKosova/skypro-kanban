@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import PopExitComponent from '../components/popups/PopExit/PopExit'
-import { useAuth } from '../contexts/AuthContext'
+import useAuth from '../contexts/AuthContext'
 
 function ExitPage() {
   const { logout } = useAuth()
   const navigate = useNavigate()
-  const [isModalOpen, setIsModalOpen] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleClose = () => {
     setIsModalOpen(false)

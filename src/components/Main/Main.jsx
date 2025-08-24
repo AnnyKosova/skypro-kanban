@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Container } from '../../App.styled'
+import useTasks from '../../contexts/TaskContext'
 import Card from '../Card/Card'
 import Column from '../Column/Column'
 import {
@@ -9,16 +10,18 @@ import {
     MainContent
 } from './Main.styled'
 
-function Main() {
-  const [isLoading, setIsLoading] = useState(true)
+function Main({ onCardClick }) {
+  const { tasks, isLoading, error } = useTasks()
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+  const getTasksByStatus = (status) => {
+    return tasks.filter(task => task.status === status)
+  }
 
-    return () => clearTimeout(timer)
-  }, [])
+  const formatDate = (dateString) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    return date.toLocaleDateString('ru-RU')
+  }
 
   if (isLoading) {
     return (
@@ -34,35 +37,98 @@ function Main() {
     )
   }
 
+  if (error) {
+    return (
+      <MainContainer>
+        <Container>
+          <MainBlock>
+            <LoadingContainer>
+              Ошибка загрузки данных: {error}
+            </LoadingContainer>
+          </MainBlock>
+        </Container>
+      </MainContainer>
+    )
+  }
+
   return (
     <MainContainer>
       <Container>
         <MainBlock>
           <MainContent>
             <Column title="Без статуса">
-              <Card theme="orange" title="Web Design" date="30.10.23" taskId="1" />
-              <Card theme="green" title="Research" date="30.10.23" taskId="2" />
-              <Card theme="orange" title="Web Design" date="30.10.23" taskId="3" />
-              <Card theme="purple" title="Copywriting" date="30.10.23" taskId="4" />
-              <Card theme="orange" title="Web Design" date="30.10.23" taskId="5" />
+              {getTasksByStatus('Без статуса').map(task => (
+                <Card 
+                  key={task._id}
+                  theme={task.topic} 
+                  title={task.title} 
+                  category={task.topic}
+                  date={formatDate(task.date)} 
+                  taskId={task._id}
+                  task={task}
+                  onCardClick={onCardClick}
+                />
+              ))}
             </Column>
             
             <Column title="Нужно сделать">
-              <Card theme="green" title="Research" date="30.10.23" taskId="6" />
+              {getTasksByStatus('Нужно сделать').map(task => (
+                <Card 
+                  key={task._id}
+                  theme={task.topic} 
+                  title={task.title} 
+                  category={task.topic}
+                  date={formatDate(task.date)} 
+                  taskId={task._id}
+                  task={task}
+                  onCardClick={onCardClick}
+                />
+              ))}
             </Column>
             
             <Column title="В работе">
-              <Card theme="green" title="Research" date="30.10.23" taskId="7" />
-              <Card theme="purple" title="Copywriting" date="30.10.23" taskId="8" />
-              <Card theme="orange" title="Web Design" date="30.10.23" taskId="9" />
+              {getTasksByStatus('В работе').map(task => (
+                <Card 
+                  key={task._id}
+                  theme={task.topic} 
+                  title={task.title} 
+                  category={task.topic}
+                  date={formatDate(task.date)} 
+                  taskId={task._id}
+                  task={task}
+                  onCardClick={onCardClick}
+                />
+              ))}
             </Column>
             
             <Column title="Тестирование">
-              <Card theme="green" title="Research" date="30.10.23" taskId="10" />
+              {getTasksByStatus('Тестирование').map(task => (
+                <Card 
+                  key={task._id}
+                  theme={task.topic} 
+                  title={task.title} 
+                  category={task.topic}
+                  date={formatDate(task.date)} 
+                  taskId={task._id}
+                  task={task}
+                  onCardClick={onCardClick}
+                />
+              ))}
             </Column>
             
             <Column title="Готово">
-              <Card theme="green" title="Research" date="30.10.23" taskId="11" />
+              {getTasksByStatus('Готово').map(task => (
+                <Card 
+                  key={task._id}
+                  theme={task.topic} 
+                  title={task.title} 
+                  category={task.topic}
+                  date={formatDate(task.date)} 
+                  taskId={task._id}
+                  task={task}
+                  onCardClick={onCardClick}
+                />
+              ))}
             </Column>
           </MainContent>
         </MainBlock>

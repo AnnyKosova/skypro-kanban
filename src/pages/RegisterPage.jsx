@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import useAuth from '../contexts/AuthContext'
 import {
     ErrorMessage,
     RegisterButton,
@@ -13,27 +13,25 @@ import {
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
+    login: '',
+    name: '',
     password: ''
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const { login } = useAuth()
+  const { register } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
 
   const validateField = (name, value) => {
     switch (name) {
-      case 'username':
-        return value.trim() === '' ? 'Поле обязательно для заполнения' : ''
-      case 'email':
+      case 'login':
         if (value.trim() === '') return 'Поле обязательно для заполнения'
-        // More strict email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!emailRegex.test(value)) return 'Некорректный email'
+        if (value.length < 3) return 'Логин должен содержать минимум 3 символа'
         return ''
+      case 'name':
+        return value.trim() === '' ? 'Поле обязательно для заполнения' : ''
       case 'password':
         if (value.trim() === '') return 'Поле обязательно для заполнения'
         if (value.length < 6) return 'Пароль должен содержать минимум 6 символов'
@@ -50,7 +48,6 @@ function RegisterPage() {
       [name]: value
     })
     
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -63,7 +60,6 @@ function RegisterPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Validate all fields
     const newErrors = {}
     Object.keys(formData).forEach(key => {
       const error = validateField(key, formData[key])
@@ -79,15 +75,17 @@ function RegisterPage() {
     }
 
     try {
-      // Simulate successful registration
-      const userData = {
-        id: 1,
-        name: formData.username,
-        email: formData.email
-      }
+      const result = await register(formData)
       
-      login(userData)
-      navigate(from, { replace: true })
+      if (result.success) {
+        navigate(from, { replace: true })
+      } else {
+        if (result.error.includes('уже существует')) {
+          setErrors({ login: 'Пользователь с таким логином уже существует' })
+        } else {
+          setErrors({ general: result.error || 'Произошла ошибка при регистрации' })
+        }
+      }
     } catch (err) {
       setErrors({ general: 'Произошла ошибка при регистрации' })
     } finally {
@@ -97,13 +95,15 @@ function RegisterPage() {
 
   const hasGeneralError = Object.keys(errors).length > 0
   const getErrorMessage = () => {
-    // Check if there are empty fields
+    if (errors.general) {
+      return errors.general
+    }
+    
     const hasEmptyFields = Object.values(formData).some(value => value.trim() === '')
     
     if (hasEmptyFields) {
       return 'Введенные вами данные не корректны.\nЧтобы завершить регистрацию, заполните все поля в форме.'
     } else {
-      // All fields are filled but some have invalid data
       return 'Введенные вами данные не корректны.\nЧтобы завершить регистрацию, введите данные корректно и повторите попытку.'
     }
   }
@@ -115,19 +115,19 @@ function RegisterPage() {
       <RegisterForm onSubmit={handleSubmit}>
         <RegisterInput 
           type="text" 
-          name="username"
-          placeholder="Имя" 
-          value={formData.username}
+          name="login"
+          placeholder="Логин" 
+          value={formData.login}
           onChange={handleChange}
-          hasError={!!errors.username}
+          hasError={!!errors.login}
         />
         <RegisterInput 
-          type="email" 
-          name="email"
-          placeholder="Эл. почта" 
-          value={formData.email}
+          type="text" 
+          name="name"
+          placeholder="Имя" 
+          value={formData.name}
           onChange={handleChange}
-          hasError={!!errors.email}
+          hasError={!!errors.name}
         />
         <RegisterInput 
           type="password" 
@@ -140,7 +140,7 @@ function RegisterPage() {
         {hasGeneralError && <ErrorMessage>{getErrorMessage()}</ErrorMessage>}
         <RegisterButton 
           type="submit"
-          disabled={isLoading || hasGeneralError}
+          disabled={isLoading}
           hasError={hasGeneralError}
         >
           {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
