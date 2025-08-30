@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from '../../App.styled'
-import useTasks from '../../contexts/TaskContext'
+import { useTasks } from '../../contexts/TaskContext'
 import Card from '../Card/Card'
 import Column from '../Column/Column'
 import {
@@ -11,9 +11,14 @@ import {
 } from './Main.styled'
 
 function Main({ onCardClick }) {
-  const { tasks, isLoading, error } = useTasks()
+  const { tasks, isLoading, error, fetchTasks } = useTasks()
+
+  useEffect(() => {
+    fetchTasks()
+  }, [fetchTasks])
 
   const getTasksByStatus = (status) => {
+    if (!Array.isArray(tasks)) return []
     return tasks.filter(task => task.status === status)
   }
 
@@ -57,78 +62,94 @@ function Main({ onCardClick }) {
         <MainBlock>
           <MainContent>
             <Column title="Без статуса">
-              {getTasksByStatus('Без статуса').map(task => (
-                <Card 
-                  key={task._id}
-                  theme={task.topic} 
-                  title={task.title} 
-                  category={task.topic}
-                  date={formatDate(task.date)} 
-                  taskId={task._id}
-                  task={task}
-                  onCardClick={onCardClick}
-                />
-              ))}
+              {(() => {
+                const tasks = getTasksByStatus('Без статуса')
+                return tasks.map(task => (
+                  <Card 
+                    key={task._id}
+                    theme={task.topic} 
+                    title={task.title} 
+                    category={task.topic}
+                    date={formatDate(task.date)} 
+                    taskId={task._id}
+                    task={task}
+                    onCardClick={onCardClick}
+                  />
+                ))
+              })()}
             </Column>
             
             <Column title="Нужно сделать">
-              {getTasksByStatus('Нужно сделать').map(task => (
-                <Card 
-                  key={task._id}
-                  theme={task.topic} 
-                  title={task.title} 
-                  category={task.topic}
-                  date={formatDate(task.date)} 
-                  taskId={task._id}
-                  task={task}
-                  onCardClick={onCardClick}
-                />
-              ))}
+              {(() => {
+                const tasks = getTasksByStatus('Нужно сделать')
+                return tasks.map(task => (
+                  <Card 
+                    key={task._id}
+                    theme={task.topic} 
+                    title={task.title} 
+                    category={task.topic}
+                    date={formatDate(task.date)} 
+                    taskId={task._id}
+                    task={task}
+                    onCardClick={onCardClick}
+                  />
+                ))
+              })()}
             </Column>
             
             <Column title="В работе">
-              {getTasksByStatus('В работе').map(task => (
-                <Card 
-                  key={task._id}
-                  theme={task.topic} 
-                  title={task.title} 
-                  category={task.topic}
-                  date={formatDate(task.date)} 
-                  taskId={task._id}
-                  task={task}
-                  onCardClick={onCardClick}
-                />
-              ))}
+              {(() => {
+                const tasks = getTasksByStatus('В работе')
+                return tasks.map(task => (
+                  <Card 
+                    key={task._id}
+                    theme={task.topic} 
+                    title={task.title} 
+                    category={task.topic}
+                    date={formatDate(task.date)} 
+                    taskId={task._id}
+                    task={task}
+                    onCardClick={onCardClick}
+                  />
+                ))
+              })()}
             </Column>
             
             <Column title="Тестирование">
-              {getTasksByStatus('Тестирование').map(task => (
-                <Card 
-                  key={task._id}
-                  theme={task.topic} 
-                  title={task.title} 
-                  category={task.topic}
-                  date={formatDate(task.date)} 
-                  taskId={task._id}
-                  task={task}
-                  onCardClick={onCardClick}
-                />
-              ))}
+              {(() => {
+                const tasks = getTasksByStatus('Тестирование')
+                return tasks.map(task => (
+                  <Card 
+                    key={task._id}
+                    theme={task.topic} 
+                    title={task.title} 
+                    category={task.topic}
+                    date={formatDate(task.date)} 
+                    taskId={task._id}
+                    task={task}
+                    onCardClick={onCardClick}
+                  />
+                ))
+              })()}
             </Column>
             
             <Column title="Готово">
-              {getTasksByStatus('Готово').map(task => (
-                <Card 
-                  key={task._id}
-                  theme={task.topic} 
-                  title={task.title} 
-                  category={task.topic}
-                  date={formatDate(task.date)} 
-                  taskId={task._id}
-                  task={task}
-                  onCardClick={onCardClick}
-                />
-              ))}
+              {(() => {
+                const tasks = getTasksByStatus('Готово')
+                return tasks.map(task => (
+                  <Card 
+                    key={task._id}
+                    theme={task.topic} 
+                    title={task.title} 
+                    category={task.topic}
+                    date={formatDate(task.date)} 
+                    taskId={task._id}
+                    task={task}
+                    onCardClick={onCardClick}
+                    isCompleted={true}
+                  />
+                ))
+              })()}
             </Column>
           </MainContent>
         </MainBlock>

@@ -3,13 +3,14 @@ import Header from '../components/Header/Header'
 import Main from '../components/Main/Main'
 import PopBrowse from '../components/popups/PopBrowse/PopBrowse'
 import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
-import useAuth from '../contexts/AuthContext'
-import useTasks from '../contexts/TaskContext'
+import { useAuth } from '../contexts/AuthContext'
+import { useTasks } from '../contexts/TaskContext'
 
 function HomePage() {
   const { user, logout } = useAuth()
   const { createTask, updateTask, deleteTask } = useTasks()
   const [isPopBrowseOpen, setIsPopBrowseOpen] = useState(false)
+  const [isPopNewCardOpen, setIsPopNewCardOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState(null)
 
   const handleCardClick = (task) => {
@@ -58,12 +59,25 @@ function HomePage() {
       const result = await createTask(taskData)
       if (result.success) {
         console.log('Задача успешно создана')
+        setIsPopNewCardOpen(false)
       } else {
         console.error('Ошибка создания задачи:', result.error)
       }
     } catch (error) {
       console.error('Ошибка создания задачи:', error)
     }
+  }
+
+  const handleOpenNewCard = () => {
+    console.log('HomePage: handleOpenNewCard called')
+    setIsPopNewCardOpen(true)
+    console.log('HomePage: isPopNewCardOpen set to true')
+  }
+
+  const handleCloseNewCard = () => {
+    console.log('HomePage: handleCloseNewCard called')
+    setIsPopNewCardOpen(false)
+    console.log('HomePage: isPopNewCardOpen set to false')
   }
 
   const handleExitClick = () => {
@@ -78,7 +92,11 @@ function HomePage() {
       backgroundColor: '#F1F1F1',
       position: 'relative'
     }}>
-      <PopNewCard onCreateTask={handleCreateTask} />
+      <PopNewCard 
+        isOpen={isPopNewCardOpen}
+        onClose={handleCloseNewCard}
+        onCreateTask={handleCreateTask} 
+      />
       <PopBrowse 
         isOpen={isPopBrowseOpen}
         onClose={handleClosePopBrowse}
@@ -87,7 +105,7 @@ function HomePage() {
         onDelete={handleDeleteTask}
       />
       
-      <Header user={user} onExitClick={handleExitClick} />
+      <Header user={user} onExitClick={handleExitClick} onNewTaskClick={handleOpenNewCard} />
       <Main onCardClick={handleCardClick} />
     </div>
   )

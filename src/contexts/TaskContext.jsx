@@ -1,6 +1,6 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 import { kanbanService } from '../services/kanbanService'
-import useAuth from './AuthContext'
+import { useAuth } from './AuthContext'
 
 const TaskContext = createContext()
 
@@ -19,21 +19,28 @@ const TaskProvider = ({ children }) => {
   const { setAuthCallback } = useAuth()
 
   const fetchTasks = useCallback(async () => {
+    console.log('TaskContext: fetchTasks called')
     const user = JSON.parse(localStorage.getItem('user') || '{}')
+    console.log('TaskContext: User from localStorage:', user)
     
     if (!user.token) {
+      console.log('TaskContext: No token, setting empty tasks')
       setTasks([])
       setIsLoading(false)
       return
     }
 
+    console.log('TaskContext: Fetching tasks with token')
     setIsLoading(true)
     setError(null)
     try {
       const response = await kanbanService.getTasks()
+      console.log('TaskContext: Tasks response:', response)
       setTasks(response.tasks || [])
     } catch (err) {
+      console.error('TaskContext: Error fetching tasks:', err)
       setError(err.message)
+      setTasks([])
     } finally {
       setIsLoading(false)
     }
@@ -78,16 +85,6 @@ const TaskProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    if (setAuthCallback && typeof setAuthCallback === 'function') {
-      setAuthCallback(fetchTasks)
-    }
-  }, [setAuthCallback, fetchTasks])
-
-  useEffect(() => {
-    fetchTasks()
-  }, [fetchTasks])
-
   const value = {
     tasks,
     isLoading,
@@ -106,5 +103,4 @@ const TaskProvider = ({ children }) => {
   )
 }
 
-export { TaskProvider }
-export default useTasks
+export { TaskProvider, useTasks }

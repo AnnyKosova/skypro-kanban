@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Calendar from '../../Calendar/Calendar'
 
-function PopNewCard({ onCreateTask }) {
+function PopNewCard({ isOpen, onClose, onCreateTask }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -72,13 +72,20 @@ function PopNewCard({ onCreateTask }) {
     }
   }
 
+  if (!isOpen) {
+    console.log('PopNewCard: not rendering, isOpen:', isOpen)
+    return null
+  }
+
+  console.log('PopNewCard: rendering, isOpen:', isOpen)
+
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">&#10006;</a>
+            <a href="#" className="pop-new-card__close" onClick={onClose}>&#10006;</a>
             <div className="pop-new-card__wrap">
               <form className="pop-new-card__form form-new" id="formNewCard" onSubmit={handleSubmit}>
                 <div className="form-new__block">
@@ -105,40 +112,40 @@ function PopNewCard({ onCreateTask }) {
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
+                <div className="categories">
+                  <p className="categories__p subttl">Категория</p>
+                  <div className="categories__themes">
+                    <div 
+                      className={`categories__theme _orange ${selectedTopic === 'Web Design' ? '_active-category' : ''}`}
+                      onClick={() => handleTopicSelect('Web Design')}
+                    >
+                      <p className="_orange">Web Design</p>
+                    </div>
+                    <div 
+                      className={`categories__theme _green ${selectedTopic === 'Research' ? '_active-category' : ''}`}
+                      onClick={() => handleTopicSelect('Research')}
+                    >
+                      <p className="_green">Research</p>
+                    </div>
+                    <div 
+                      className={`categories__theme _purple ${selectedTopic === 'Copywriting' ? '_active-category' : ''}`}
+                      onClick={() => handleTopicSelect('Copywriting')}
+                    >
+                      <p className="_purple">Copywriting</p>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  className="form-new__create _hover01" 
+                  id="btnCreate"
+                  onClick={handleSubmit}
+                >
+                  Создать задачу
+                </button>
               </form>
               <div className="pop-new-card__calendar">
                 <Calendar onDateSelect={handleDateSelect} selectedDate={selectedDate} />
               </div>
-              <div className="pop-new-card__categories categories">
-                <p className="categories__p subttl">Категория</p>
-                <div className="categories__themes">
-                  <div 
-                    className={`categories__theme _orange ${selectedTopic === 'Web Design' ? '_active-category' : ''}`}
-                    onClick={() => handleTopicSelect('Web Design')}
-                  >
-                    <p className="_orange">Web Design</p>
-                  </div>
-                  <div 
-                    className={`categories__theme _green ${selectedTopic === 'Research' ? '_active-category' : ''}`}
-                    onClick={() => handleTopicSelect('Research')}
-                  >
-                    <p className="_green">Research</p>
-                  </div>
-                  <div 
-                    className={`categories__theme _purple ${selectedTopic === 'Copywriting' ? '_active-category' : ''}`}
-                    onClick={() => handleTopicSelect('Copywriting')}
-                  >
-                    <p className="_purple">Copywriting</p>
-                  </div>
-                </div>
-              </div>
-              <button 
-                className="form-new__create _hover01" 
-                id="btnCreate"
-                onClick={handleSubmit}
-              >
-                Создать задачу
-              </button>
             </div>
           </div>
         </div>

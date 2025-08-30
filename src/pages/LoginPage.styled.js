@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
   width: 368px;
-  height: ${props => props.hasError ? '390px' : '329px'};
+  height: ${props => props.$hasError ? '390px' : '329px'};
   padding: 50px 60px 50px 60px;
   box-sizing: border-box;
   border: 0.7px solid rgba(212, 219, 229, 1);
@@ -40,7 +40,7 @@ export const LoginInput = styled.input`
   height: 30px;
   padding: 8px 10px 8px 10px;
   box-sizing: border-box;
-  border: 0.7px solid ${props => props.hasError ? 'rgba(248, 77, 77, 1)' : 'rgba(148, 166, 190, 0.4)'};
+  border: 0.7px solid ${props => props.$hasError ? 'rgba(248, 77, 77, 1)' : 'rgba(148, 166, 190, 0.4)'};
   border-radius: 8px;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -62,7 +62,7 @@ export const LoginInput = styled.input`
   
   &:focus {
     outline: none;
-    border-color: ${props => props.hasError ? 'rgba(248, 77, 77, 1)' : 'rgba(148, 166, 190, 1)'};
+    border-color: ${props => props.$hasError ? 'rgba(248, 77, 77, 1)' : 'rgba(148, 166, 190, 1)'};
   }
 `
 
@@ -70,7 +70,7 @@ export const LoginButton = styled.button`
   width: 248px;
   height: 30px;
   border-radius: 4px;
-  background: ${props => props.hasError ? 'rgba(148, 166, 190, 1)' : 'rgba(86, 94, 239, 1)'};
+  background: ${props => props.$hasError ? 'rgba(148, 166, 190, 1)' : 'rgba(86, 94, 239, 1)'};
   color: rgba(255, 255, 255, 1);
   border: none;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};

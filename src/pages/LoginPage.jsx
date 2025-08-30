@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import useAuth from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import {
     ErrorMessage,
     LoginButton,
@@ -60,7 +60,7 @@ function LoginPage() {
   }
 
   return (
-    <LoginContainer hasError={!!error}>
+    <LoginContainer $hasError={!!error}>
       <LoginTitle>Вход</LoginTitle>
       
       <LoginForm onSubmit={handleSubmit}>
@@ -70,7 +70,7 @@ function LoginPage() {
           placeholder="Логин" 
           value={formData.login}
           onChange={handleChange}
-          hasError={!!error}
+          $hasError={!!error}
         />
         <LoginInput 
           type="password" 
@@ -78,13 +78,13 @@ function LoginPage() {
           placeholder="Пароль" 
           value={formData.password}
           onChange={handleChange}
-          hasError={!!error}
+          $hasError={!!error}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <LoginButton 
           type="submit"
           disabled={isLoading}
-          hasError={!!error}
+          $hasError={!!error}
         >
           {isLoading ? 'Вход...' : 'Войти'}
         </LoginButton>

@@ -42,18 +42,22 @@ const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
+      console.log('AuthContext: Login started')
       const response = await userService.login(credentials)
       const userData = response.user
+      console.log('AuthContext: Login successful, setting user:', userData)
       setUser(userData)
       setIsAuth(true)
       localStorage.setItem('user', JSON.stringify(userData))
       
       if (onAuthChange && typeof onAuthChange === 'function') {
+        console.log('AuthContext: Calling onAuthChange callback')
         onAuthChange()
       }
       
       return { success: true }
     } catch (error) {
+      console.error('AuthContext: Login failed:', error)
       return { success: false, error: error.message }
     }
   }
@@ -103,5 +107,4 @@ const AuthProvider = ({ children }) => {
   )
 }
 
-export { AuthProvider }
-export default useAuth
+export { AuthProvider, useAuth }
