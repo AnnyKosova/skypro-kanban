@@ -43,7 +43,7 @@ export const api = {
   post: async (endpoint, data) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
-      headers: getAuthHeaders(),
+      headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
     return handleResponse(response)

@@ -7,7 +7,6 @@ import HomePage from '../../pages/HomePage'
 import LoginPage from '../../pages/LoginPage'
 import NotFoundPage from '../../pages/NotFoundPage'
 import RegisterPage from '../../pages/RegisterPage'
-import ViewTaskPage from '../../pages/ViewTaskPage'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function AppRoutes() {
@@ -33,7 +32,7 @@ function AppRoutes() {
       } />
       <Route path="/card/:id" element={
         <ProtectedRoute>
-          <ViewTaskPage />
+          <HomePage />
         </ProtectedRoute>
       } />
       <Route path="/exit" element={

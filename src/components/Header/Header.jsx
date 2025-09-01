@@ -20,6 +20,10 @@ function Header({ onExitClick, user, onNewTaskClick }) {
     setIsUserPopupOpen(!isUserPopupOpen)
   }
 
+  const handleNewTaskClick = () => {
+    navigate('/add-task')
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       const popup = document.getElementById('user-set-target')
@@ -50,7 +54,7 @@ function Header({ onExitClick, user, onNewTaskClick }) {
             <Link to="/"><img src="images/logo_dark.png" alt="logo" /></Link>
           </HeaderLogo>
           <HeaderNav>
-            <HeaderButton className="_hover01" id="btnMainNew" onClick={onNewTaskClick}>
+            <HeaderButton className="_hover01" id="btnMainNew" onClick={handleNewTaskClick}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </HeaderButton>
             <HeaderUser href="#user-set-target" className="_hover02" onClick={handleUserClick}>

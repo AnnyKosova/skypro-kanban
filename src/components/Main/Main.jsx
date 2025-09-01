@@ -17,9 +17,12 @@ function Main({ onCardClick }) {
     fetchTasks()
   }, [fetchTasks])
 
+  const normalize = (s) => (s || '').toString().trim().toLowerCase()
+
   const getTasksByStatus = (status) => {
     if (!Array.isArray(tasks)) return []
-    return tasks.filter(task => task.status === status)
+    const target = normalize(status)
+    return tasks.filter(task => normalize(task.status) === target)
   }
 
   const formatDate = (dateString) => {

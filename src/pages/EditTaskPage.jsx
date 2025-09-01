@@ -1,13 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../components/Header/Header'
+import { useTasks } from '../contexts/TaskContext'
 
 function EditTaskPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { updateTask, deleteTask } = useTasks()
+
+  const [title, setTitle] = useState('Текущее название задачи')
+  const [description, setDescription] = useState('Текущее описание задачи')
+  const [status, setStatus] = useState('in-progress')
+  const [date, setDate] = useState('2024-01-15')
 
   const handleCancel = () => {
     navigate('/')
+  }
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm('Удалить эту задачу?')
+    if (!confirmed) return
+    try {
+      const result = await deleteTask(id)
+      if (result.success) {
+        navigate('/')
+      } else {
+        alert('Ошибка удаления задачи')
+      }
+    } catch (e) {
+      alert('Ошибка удаления задачи')
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      title,
+      description,
+      status,
+      date
+    }
+    try {
+      const result = await updateTask(id, payload)
+      if (result.success) {
+        navigate('/')
+      } else {
+        alert('Ошибка сохранения изменений')
+      }
+    } catch (e) {
+      alert('Ошибка сохранения изменений')
+    }
   }
 
   return (
@@ -50,20 +92,22 @@ function EditTaskPage() {
               ← На главную
             </button>
           </div>
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '20px' }}>
             <input 
               type="text" 
               placeholder="Название задачи" 
-              defaultValue="Текущее название задачи"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               style={{ padding: '12px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px' }}
             />
             <textarea 
               placeholder="Описание задачи" 
               rows="4"
-              defaultValue="Текущее описание задачи"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               style={{ padding: '12px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px', resize: 'vertical' }}
             />
-            <select defaultValue="in-progress" style={{ padding: '12px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px' }}>
+            <select value={status} onChange={(e) => setStatus(e.target.value)} style={{ padding: '12px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px' }}>
               <option value="backlog">Backlog</option>
               <option value="ready">Ready</option>
               <option value="in-progress">In Progress</option>
@@ -71,10 +115,11 @@ function EditTaskPage() {
             </select>
             <input 
               type="date" 
-              defaultValue="2024-01-15"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               style={{ padding: '12px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '16px' }}
             />
-            <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
               <button 
                 type="submit"
                 style={{ 
@@ -109,6 +154,23 @@ function EditTaskPage() {
                 Отмена
               </button>
             </div>
+            <button 
+              type="button"
+              onClick={handleDelete}
+              style={{ 
+                padding: '12px 24px',
+                backgroundColor: '#dc3545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                alignSelf: 'flex-start'
+              }}
+            >
+              Удалить задачу
+            </button>
           </form>
         </div>
       </div>
