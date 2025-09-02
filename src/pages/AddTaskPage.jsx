@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
+import Main from '../components/Main/Main'
 import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
 import { useAuth } from '../contexts/AuthContext'
 import { useTasks } from '../contexts/TaskContext'
@@ -36,9 +37,10 @@ function AddTaskPage() {
       maxWidth: '100%', 
       width: '100vw', 
       minHeight: '100vh', 
-      backgroundColor: '#F1F1F1'
+      
     }}>
       <Header user={user} />
+      <Main />
       <PopNewCard 
         isOpen={isModalOpen} 
         onClose={handleClose}

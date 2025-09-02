@@ -49,15 +49,7 @@ const TaskProvider = ({ children }) => {
   const createTask = async (taskData) => {
     try {
       const response = await kanbanService.createTask(taskData)
-      if (response.tasks) {
-        setTasks(response.tasks)
-      } else if (response.task) {
-        setTasks(prev => [response.task, ...prev])
-      } else {
-        // если сервер ничего не вернул, обновим общий список
-        const fresh = await kanbanService.getTasks()
-        setTasks(fresh.tasks || [])
-      }
+      setTasks(response.tasks || [])
       return { success: true }
     } catch (err) {
       return { success: false, error: err.message }
@@ -67,18 +59,7 @@ const TaskProvider = ({ children }) => {
   const updateTask = async (id, taskData) => {
     try {
       const response = await kanbanService.updateTask(id, taskData)
-      if (response?.tasks) {
-        setTasks(response.tasks)
-      } else if (response?.task) {
-        setTasks(prev => prev.map(t => (t._id === id ? response.task : t)))
-      } else {
-        setTasks(prev => prev.map(t => (t._id === id ? { ...t, ...taskData } : t)))
-      }
-      // гарантированно синхронизируемся с сервером
-      try {
-        const fresh = await kanbanService.getTasks()
-        setTasks(fresh.tasks || [])
-      } catch {}
+      setTasks(response.tasks || [])
       return { success: true }
     } catch (err) {
       return { success: false, error: err.message }
@@ -88,11 +69,7 @@ const TaskProvider = ({ children }) => {
   const deleteTask = async (id) => {
     try {
       const response = await kanbanService.deleteTask(id)
-      if (response?.tasks) {
-        setTasks(response.tasks)
-      } else {
-        setTasks(prev => prev.filter(t => t._id !== id))
-      }
+      setTasks(response.tasks || [])
       return { success: true }
     } catch (err) {
       return { success: false, error: err.message }
