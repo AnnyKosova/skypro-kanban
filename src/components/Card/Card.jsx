@@ -24,7 +24,11 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
 
   const handleEditClick = (e) => {
     e.stopPropagation()
-    navigate(`/edit-task/${taskId}`)
+    if (onCardClick && task) {
+      onCardClick(task)
+    } else {
+      navigate(`/card/${taskId}`)
+    }
   }
 
   const getThemeClass = (theme) => {

@@ -1,15 +1,7 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { userService } from '../services/userService'
 
 const AuthContext = createContext()
-
-const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
-}
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -107,4 +99,4 @@ const AuthProvider = ({ children }) => {
   )
 }
 
-export { AuthProvider, useAuth }
+export { AuthProvider, AuthContext }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 import {
     ErrorMessage,
     RegisterButton,
@@ -86,7 +86,7 @@ function RegisterPage() {
           setErrors({ general: result.error || 'Произошла ошибка при регистрации' })
         }
       }
-    } catch (err) {
+    } catch {
       setErrors({ general: 'Произошла ошибка при регистрации' })
     } finally {
       setIsLoading(false)

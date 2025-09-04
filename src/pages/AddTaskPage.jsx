@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Main from '../components/Main/Main'
 import PopNewCard from '../components/popups/PopNewCard/PopNewCard'
-import { useAuth } from '../contexts/AuthContext'
-import { useTasks } from '../contexts/TaskContext'
+import { useAuth } from '../hooks/useAuth'
+import { useTasks } from '../hooks/useTasks'
 
 function AddTaskPage() {
   const navigate = useNavigate()
@@ -40,7 +40,7 @@ function AddTaskPage() {
       
     }}>
       <Header user={user} />
-      <Main />
+      <div style={{ opacity: 0.5 }}><Main /></div>
       <PopNewCard 
         isOpen={isModalOpen} 
         onClose={handleClose}

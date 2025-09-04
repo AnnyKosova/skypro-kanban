@@ -11,7 +11,7 @@ import {
     HeaderUser
 } from './Header.styled'
 
-function Header({ onExitClick, user, onNewTaskClick }) {
+function Header({ user }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
   const navigate = useNavigate()
 

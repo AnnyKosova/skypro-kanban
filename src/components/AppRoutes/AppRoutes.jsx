@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AddTaskPage from '../../pages/AddTaskPage'
-import EditTaskPage from '../../pages/EditTaskPage'
 import ExitPage from '../../pages/ExitPage'
 import HomePage from '../../pages/HomePage'
 import LoginPage from '../../pages/LoginPage'
@@ -23,11 +22,6 @@ function AppRoutes() {
       <Route path="/add-task" element={
         <ProtectedRoute>
           <AddTaskPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/edit-task/:id" element={
-        <ProtectedRoute>
-          <EditTaskPage />
         </ProtectedRoute>
       } />
       <Route path="/card/:id" element={

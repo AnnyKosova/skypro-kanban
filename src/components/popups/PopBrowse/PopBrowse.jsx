@@ -7,7 +7,6 @@ function PopBrowse({ isOpen, onClose, task, onEdit, onDelete }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [editData, setEditData] = useState({});
 
-  console.log('PopBrowse render:', { isOpen, task })
 
   useEffect(() => {
     if (task) {
@@ -25,7 +24,6 @@ function PopBrowse({ isOpen, onClose, task, onEdit, onDelete }) {
   }, [task])
 
   if (!isOpen || !task) {
-    console.log('PopBrowse: not rendering, isOpen:', isOpen, 'task:', task)
     return null
   }
 

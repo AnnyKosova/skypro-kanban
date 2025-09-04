@@ -23,6 +23,7 @@
   top: 0;
   left: 0;
   z-index: 6;
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -359,6 +360,7 @@
   top: 0;
   left: 0;
   z-index: 7;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .pop-browse__container {
   width: 100%;
@@ -374,7 +376,7 @@
 .pop-browse__block {
   display: block;
   margin: 0 auto;
-  margin-top: -124px;
+  margin-top: 92px;
   background-color: #FFFFFF;
   max-width: 630px;
   width: 100%;

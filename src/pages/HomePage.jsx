@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Main from '../components/Main/Main'
 import PopBrowse from '../components/popups/PopBrowse/PopBrowse'
-import { useAuth } from '../contexts/AuthContext'
-import { useTasks } from '../contexts/TaskContext'
+import { useAuth } from '../hooks/useAuth'
+import { useTasks } from '../hooks/useTasks'
 
 function HomePage() {
   const { user, logout } = useAuth()

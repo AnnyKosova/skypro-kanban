@@ -22,7 +22,7 @@ const handleResponse = async (response) => {
       } else if (errorData.error) {
         errorMessage = errorData.error
       }
-    } catch (e) {
+    } catch {
       // Если не удалось распарсить JSON, используем стандартное сообщение
     }
     
@@ -32,7 +32,21 @@ const handleResponse = async (response) => {
 }
 
 export const api = {
-  get: async (endpoint) => {
+  getTasks: async () => {
+    return api.get("/kanban")
+  },
+
+  createTask: async (taskData) => {
+    return api.post("/kanban", taskData)
+  },
+
+  updateTask: async (id, taskData) => {
+    return api.put(`/kanban/${id}`, taskData)
+  },
+
+  deleteTask: async (id) => {
+    return api.delete(`/kanban/${id}`)
+  },  get: async (endpoint) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'GET',
       headers: getAuthHeaders()
@@ -56,13 +70,11 @@ export const api = {
       body: JSON.stringify(data)
     })
     return handleResponse(response)
-  },
-
-  delete: async (endpoint) => {
+  },  delete: async (endpoint) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'DELETE',
       headers: getAuthHeaders()
     })
     return handleResponse(response)
   }
-} 
+}
