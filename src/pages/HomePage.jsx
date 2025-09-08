@@ -53,10 +53,15 @@ function HomePage() {
   const handleEditTask = async (taskData) => {
     console.log('Редактирование задачи:', taskData)
     try {
-      const result = await updateTask(selectedTask._id, taskData)
+      // Убираем пустое поле description
+      const cleanTaskData = { ...taskData }
+      if (!cleanTaskData.description || cleanTaskData.description.trim() === '') {
+        delete cleanTaskData.description
+      }
+      
+      const result = await updateTask(selectedTask._id, cleanTaskData)
       if (result.success) {
         console.log('Задача успешно обновлена')
-        // Не закрываем модал автоматически, пользователь сам решит
       } else {
         console.error('Ошибка обновления задачи:', result.error)
       }

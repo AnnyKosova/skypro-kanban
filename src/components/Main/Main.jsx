@@ -11,8 +11,11 @@ import {
 } from './Main.styled'
 
 function Main({ onCardClick }) {
-  const { tasks, isLoading, error } = useTasks()
+  const { tasks, isLoading, error, updateTaskStatus } = useTasks()
 
+  const handleTaskDrop = async (taskId, newStatus) => {
+    await updateTaskStatus(taskId, newStatus)
+  }
 
   const normalize = (s) => (s || '').toString().trim().toLowerCase()
 
@@ -61,7 +64,7 @@ function Main({ onCardClick }) {
       <Container>
         <MainBlock>
           <MainContent>
-            <Column title="Без статуса">
+          <Column title="Без статуса" onDrop={handleTaskDrop} status="Без статуса">
               {(() => {
                 const tasks = getTasksByStatus('Без статуса')
                 return tasks.map(task => (
@@ -79,7 +82,7 @@ function Main({ onCardClick }) {
               })()}
             </Column>
             
-            <Column title="Нужно сделать">
+            <Column title="Нужно сделать" onDrop={handleTaskDrop} status="Нужно сделать">
               {(() => {
                 const tasks = getTasksByStatus('Нужно сделать')
                 return tasks.map(task => (
@@ -97,7 +100,7 @@ function Main({ onCardClick }) {
               })()}
             </Column>
             
-            <Column title="В работе">
+            <Column title="В работе" onDrop={handleTaskDrop} status="В работе">
               {(() => {
                 const tasks = getTasksByStatus('В работе')
                 return tasks.map(task => (
@@ -115,7 +118,7 @@ function Main({ onCardClick }) {
               })()}
             </Column>
             
-            <Column title="Тестирование">
+            <Column title="Тестирование" onDrop={handleTaskDrop} status="Тестирование">
               {(() => {
                 const tasks = getTasksByStatus('Тестирование')
                 return tasks.map(task => (
@@ -133,7 +136,7 @@ function Main({ onCardClick }) {
               })()}
             </Column>
             
-            <Column title="Готово">
+            <Column title="Готово" onDrop={handleTaskDrop} status="Готово">
               {(() => {
                 const tasks = getTasksByStatus('Готово')
                 return tasks.map(task => (

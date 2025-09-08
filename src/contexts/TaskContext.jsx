@@ -47,6 +47,33 @@ const TaskProvider = ({ children }) => {
       return { success: false, error: err.message }
     }
   }
+
+  const updateTaskStatus = async (taskId, newStatus) => {
+    try {
+      const currentTask = tasks.find(task => task._id === taskId)
+if (!currentTask) {
+  return { success: false, error: 'Задача не найдена' }
+}
+
+const updatedTaskData = {
+  title: currentTask.title,
+  topic: currentTask.topic,
+  status: newStatus,
+  date: currentTask.date
+}
+
+if (currentTask.description && currentTask.description.trim() !== '') {
+  updatedTaskData.description = currentTask.description
+}
+
+const response = await kanbanService.updateTask(taskId, updatedTaskData)
+      setTasks(response.tasks || [])
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  }
+
   const deleteTask = async (id) => {
     try {
       const response = await kanbanService.deleteTask(id)
@@ -57,13 +84,13 @@ const TaskProvider = ({ children }) => {
     }
   }
 
-
   const value = {
     tasks,
     setTasks,
     fetchTasks,
     createTask,
     updateTask,
+    updateTaskStatus,
     deleteTask,
     isLoading
   }
