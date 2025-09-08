@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container } from '../../App.styled'
-import { useTasks } from '../../hooks/useTasks'
 import Card from '../Card/Card'
 import Column from '../Column/Column'
+import { useTasks } from '../../hooks/useTasks'
 import {
-    LoadingContainer,
     MainBlock,
     MainContainer,
     MainContent
 } from './Main.styled'
 
-function Main({ onCardClick }) {
-  const { tasks, isLoading, error } = useTasks()
-
+function TasksBackground({ onCardClick }) {
+  const { tasks } = useTasks()
 
   const normalize = (s) => (s || '').toString().trim().toLowerCase()
 
@@ -26,34 +24,6 @@ function Main({ onCardClick }) {
     if (!dateString) return ''
     const date = new Date(dateString)
     return date.toLocaleDateString('ru-RU')
-  }
-
-  if (isLoading) {
-    return (
-      <MainContainer>
-        <Container>
-          <MainBlock>
-            <LoadingContainer>
-              Данные загружаются
-            </LoadingContainer>
-          </MainBlock>
-        </Container>
-      </MainContainer>
-    )
-  }
-
-  if (error) {
-    return (
-      <MainContainer>
-        <Container>
-          <MainBlock>
-            <LoadingContainer>
-              Ошибка загрузки данных: {error}
-            </LoadingContainer>
-          </MainBlock>
-        </Container>
-      </MainContainer>
-    )
   }
 
   return (
@@ -158,4 +128,4 @@ function Main({ onCardClick }) {
   )
 }
 
-export default Main 
+export default TasksBackground

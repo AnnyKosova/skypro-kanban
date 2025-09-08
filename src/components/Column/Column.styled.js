@@ -1,14 +1,16 @@
 import styled from 'styled-components'
 
 export const ColumnContainer = styled.div`
-  width: 20%;
-  margin: 0 auto;
-  display: block;
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
   
   @media screen and (max-width: 1200px) {
     width: 100%;
-    margin: 0 auto;
-    display: block;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 `
 

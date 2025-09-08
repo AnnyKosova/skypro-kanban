@@ -44,7 +44,6 @@ function PopNewTask({ isOpen, onClose, onTaskCreate }) {
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('')
   
-  const categories = ['Web Design', 'Research', 'Copywriting']
   
   const daysOfWeek = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
   

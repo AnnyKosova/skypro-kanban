@@ -11,13 +11,17 @@ import {
     HeaderUser
 } from './Header.styled'
 
-function Header({ onExitClick, user, onNewTaskClick }) {
+function Header({ user }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleUserClick = (e) => {
     e.preventDefault()
     setIsUserPopupOpen(!isUserPopupOpen)
+  }
+
+  const handleNewTaskClick = () => {
+    navigate('/add-task')
   }
 
   useEffect(() => {
@@ -50,10 +54,7 @@ function Header({ onExitClick, user, onNewTaskClick }) {
             <Link to="/"><img src="images/logo_dark.png" alt="logo" /></Link>
           </HeaderLogo>
           <HeaderNav>
-            <HeaderButton className="_hover01" id="btnMainNew" onClick={() => {
-              console.log('Header button clicked, navigating to /add-task')
-              navigate('/add-task')
-            }}>
+            <HeaderButton className="_hover01" id="btnMainNew" onClick={handleNewTaskClick}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </HeaderButton>
             <HeaderUser href="#user-set-target" className="_hover02" onClick={handleUserClick}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 import {
     ErrorMessage,
     LoginButton,
@@ -13,7 +13,7 @@ import {
 
 function LoginPage() {
   const [formData, setFormData] = useState({
-    email: '',
+    login: '',
     password: ''
   })
   const [error, setError] = useState('')
@@ -30,6 +30,9 @@ function LoginPage() {
       ...formData,
       [e.target.name]: e.target.value
     })
+    if (error) {
+      setError('')
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -38,21 +41,16 @@ function LoginPage() {
     setIsLoading(true)
 
     try {
-      if (!formData.email || !formData.password) {
+      if (!formData.login || !formData.password) {
         throw new Error('Пожалуйста, заполните все поля')
       }
 
-      if (formData.email === 'ivan.ivanov@gmail.com' && formData.password === 'password') {
-        const userData = {
-          id: 1,
-          name: 'Ivan Ivanov',
-          email: formData.email
-        }
-        
-        login(userData)
+      const result = await login(formData)
+      
+      if (result.success) {
         navigate(from, { replace: true })
       } else {
-        throw new Error('Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.')
+        setError(result.error || 'Ошибка входа')
       }
     } catch (err) {
       setError(err.message)
@@ -62,17 +60,17 @@ function LoginPage() {
   }
 
   return (
-    <LoginContainer hasError={!!error}>
+    <LoginContainer $hasError={!!error}>
       <LoginTitle>Вход</LoginTitle>
       
       <LoginForm onSubmit={handleSubmit}>
         <LoginInput 
-          type="email" 
-          name="email"
-          placeholder="Эл. почта" 
-          value={formData.email}
+          type="text" 
+          name="login"
+          placeholder="Логин" 
+          value={formData.login}
           onChange={handleChange}
-          hasError={!!error}
+          $hasError={!!error}
         />
         <LoginInput 
           type="password" 
@@ -80,13 +78,13 @@ function LoginPage() {
           placeholder="Пароль" 
           value={formData.password}
           onChange={handleChange}
-          hasError={!!error}
+          $hasError={!!error}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <LoginButton 
           type="submit"
-          disabled={isLoading || !!error}
-          hasError={!!error}
+          disabled={isLoading}
+          $hasError={!!error}
         >
           {isLoading ? 'Вход...' : 'Войти'}
         </LoginButton>

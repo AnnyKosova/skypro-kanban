@@ -1,0 +1,99 @@
+import React, { createContext, useCallback, useState } from 'react'
+import { kanbanService } from '../services/kanbanService'
+
+
+const TaskContext = createContext()
+
+
+const TaskProvider = ({ children }) => {
+  const [tasks, setTasks] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  
+
+  const fetchTasks = useCallback(async () => {
+    console.log('TaskContext: fetchTasks called')
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+    console.log('TaskContext: User from localStorage:', user)
+    
+    if (!user.token) {
+      console.log('TaskContext: No token, setting empty tasks')
+      setTasks([])
+      setIsLoading(false)
+      return
+    }
+
+    console.log('TaskContext: Fetching tasks with token')
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await kanbanService.getTasks()
+      console.log('TaskContext: Tasks response:', response)
+      setTasks(response.tasks || [])
+    } catch (err) {
+      console.error('TaskContext: Error fetching tasks:', err)
+      setError(err.message)
+      setTasks([])
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  const createTask = async (taskData) => {
+    try {
+      const response = await kanbanService.createTask(taskData)
+      setTasks(response.tasks || [])
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  }
+
+  const updateTask = async (id, taskData) => {
+    try {
+      const response = await kanbanService.updateTask(id, taskData)
+      setTasks(response.tasks || [])
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  }
+
+  const deleteTask = async (id) => {
+    try {
+      const response = await kanbanService.deleteTask(id)
+      setTasks(response.tasks || [])
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  }
+
+  const getTaskById = async (id) => {
+    try {
+      const response = await kanbanService.getTaskById(id)
+      return { success: true, task: response.task }
+    } catch (err) {
+      return { success: false, error: err.message }
+    }
+  }
+
+  const value = {
+    tasks,
+    isLoading,
+    error,
+    fetchTasks,
+    createTask,
+    updateTask,
+    deleteTask,
+    getTaskById
+  }
+
+  return (
+    <TaskContext.Provider value={value}>
+      {children}
+    </TaskContext.Provider>
+  )
+}
+
+export { TaskProvider, TaskContext }

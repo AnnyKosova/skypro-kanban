@@ -1,6 +1,5 @@
 .pop-user-set:target,
 .pop-exit:target,
-.pop-new-card:target,
 .pop-browse:target {
   display: block;
 }
@@ -16,15 +15,18 @@
 
 
 .pop-new-card {
-  display: none;
   width: 100%;
   min-width: 375px;
   height: 100%;
   min-height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 6;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pop-new-card__container {
   width: 100%;
@@ -34,12 +36,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background: rgba(0, 0, 0, 0.4);
+  padding-top: 50px;
 }
 .pop-new-card__block {
   display: block;
   margin: 0 auto;
+  margin-top: 100px;
   background-color: #FFFFFF;
   max-width: 630px;
   width: 100%;
@@ -47,6 +51,7 @@
   border-radius: 10px;
   border: 0.7px solid #D4DBE5;
   position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 .pop-new-card__content {
   display: block;
@@ -73,18 +78,25 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 21px;
+  width: 100%;
 }
+
 .pop-new-card__form {
   max-width: 370px;
   width: 100%;
-  display: block;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .form-new__block {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
+
 .form-new__input, .form-new__area {
   width: 100%;
   outline: none;
@@ -95,28 +107,32 @@
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  transition: border-color 0.2s;
 }
-.form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1px;
-  color: #94A6BE;
-  letter-spacing: -0.14px;
-}
+
 .form-new__input::placeholder, .form-new__area::placeholder {
-  font-weight: 400;
+  color: rgba(148, 166, 190, 1);
+  font-family: Roboto;
   font-size: 14px;
-  line-height: 1px;
-  color: #94A6BE;
-  letter-spacing: -0.14px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: left;
 }
+
+.form-new__input:focus, .form-new__area:focus {
+  border-color: rgba(148, 166, 190, 1);
+}
+
 .form-new__input {
-  margin: 20px 0;
+  margin: 0;
 }
+
 .form-new__area {
   max-width: 370px;
   margin-top: 14px;
   height: 200px;
+  resize: vertical;
 }
 .form-new__create {
   width: 132px;
@@ -129,7 +145,14 @@
   font-weight: 500;
   line-height: 1;
   color: #FFFFFF;
-  float: right;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: -199px;
+  align-self: flex-end;
+}
+
+.form-new__create:hover {
+  background-color: #4A52D4;
 }
 
 .subttl {
@@ -137,10 +160,11 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
+  display: block;
 }
 
 .calendar {
-  width: 182px;
+  width: 168px;
   margin-bottom: 20px;
 }
 .calendar__ttl {
@@ -149,11 +173,28 @@
 }
 .calendar__p {
   color: #94A6BE;
+  font-family: Roboto;
   font-size: 10px;
-  line-height: 1;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-align: left;
+  margin: 0;
+  margin-top: 25px;
+}
+
+/* Отдельный стиль для "Срок исполнения" в модале создания задачи */
+.pop-new-card .calendar__p {
+  margin-top: 23px;
+}
+
+/* Отдельный стиль для заголовка "Название задачи" в модале создания */
+.pop-new-card .form-new__block:first-child .subttl {
+  margin-bottom: 20px;
 }
 .calendar__p span {
   color: #000000;
+  font-weight: 400;
 }
 .calendar__block {
   display: block;
@@ -171,7 +212,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  gap: 12.5px;
   margin: 7px 0;
   padding: 0 7px;
 }
@@ -183,14 +224,14 @@
   letter-spacing: -0.2px;
 }
 .calendar__cells {
-  width: 182px;
+  width: 168px;
   height: 126px;
   display: flex;
   flex-wrap: wrap;
 }
 .calendar__cell {
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
   margin: 2px;
   border-radius: 50%;
   display: flex;
@@ -213,6 +254,7 @@
 }
 .calendar__period {
   padding: 0 7px;
+  margin-top: 15px;
 }
 
 .nav__actions {
@@ -252,12 +294,14 @@
 
 .categories {
   margin-bottom: 20px;
+  flex-shrink: 0;
 }
 .categories__themes {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 7px;
 }
 .categories__p {
   margin-bottom: 14px;
@@ -268,14 +312,42 @@
   height: 30px;
   padding: 8px 20px;
   border-radius: 24px;
-  margin-right: 7px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border: none;
+}
+
+.categories__theme._orange {
+  background-color: rgba(255, 228, 194, 1);
+  color: rgba(255, 109, 0, 1);
+}
+
+.categories__theme._green {
+  background-color: rgba(180, 253, 209, 1);
+  color: rgba(6, 177, 110, 1);
   opacity: 0.4;
 }
+
+.categories__theme._purple {
+  background-color: rgba(233, 212, 255, 1);
+  color: rgba(154, 72, 241, 1);
+}
+
+.categories__theme._active-category {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.categories__theme:not(._active-category) {
+  opacity: 0.7;
+}
+
 .categories__theme p {
   font-size: 14px;
   font-weight: 600;
   line-height: 14px;
   white-space: nowrap;
+  margin: 0;
 }
 
 .pop-browse {
@@ -288,6 +360,7 @@
   top: 0;
   left: 0;
   z-index: 7;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .pop-browse__container {
   width: 100%;
@@ -303,6 +376,7 @@
 .pop-browse__block {
   display: block;
   margin: 0 auto;
+  margin-top: 92px;
   background-color: #FFFFFF;
   max-width: 630px;
   width: 100%;
@@ -321,6 +395,11 @@
 .pop-browse__content .theme-down {
   display: none;
   margin-bottom: 20px;
+}
+
+/* Отдельный стиль для "Срок исполнения" в модале просмотра задачи */
+.pop-browse .calendar__period {
+  margin-top: -11px;
 }
 .pop-browse__content .theme-top {
   display: block;
@@ -442,6 +521,103 @@
 }
 ._btn-bg a {
   color: #FFFFFF;
+}
+
+/* Стили для статуса "Без статуса" - оба варианта классов */
+.status__theme--no-status._active,
+.status_theme--no-status._active,
+.status__theme--Без\ статуса._active,
+.status_theme--Без\ статуса._active {
+  background-color: rgba(148, 166, 190, 1) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(148, 166, 190, 1) !important;
+}
+
+.status__theme--no-status._active p,
+.status_theme--no-status._active p,
+.status__theme--Без\ статуса._active p,
+.status_theme--Без\ статуса._active p {
+  color: #FFFFFF !important;
+}
+
+
+
+/* Стили для кнопок действий - оба варианта классов */
+.btn-browse__edit:hover,
+.btn-browse_edit:hover,
+.btn-browse__delete:hover,
+.btn-browse_delete:hover,
+.btn-browse__close:hover,
+.btn-browse_close:hover,
+.btn-edit__edit:hover,
+.btn-edit_edit:hover,
+.btn-edit__delete:hover,
+.btn-edit_delete:hover,
+.btn-edit__close:hover,
+.btn-edit_close:hover {
+  background-color: #565EEF !important;
+  color: #FFFFFF !important;
+  border-color: #565EEF !important;
+}
+
+.btn-browse__edit:hover span,
+.btn-browse_edit:hover span,
+.btn-browse__delete:hover span,
+.btn-browse_delete:hover span,
+.btn-browse__close:hover span,
+.btn-browse_close:hover span,
+.btn-edit__edit:hover span,
+.btn-edit_edit:hover span,
+.btn-edit__delete:hover span,
+.btn-edit_delete:hover span,
+.btn-edit__close:hover span,
+.btn-edit_close:hover span {
+  color: #FFFFFF !important;
+}
+
+.btn-browse__edit:active,
+.btn-browse_edit:active,
+.btn-browse__delete:active,
+.btn-browse_delete:active,
+.btn-browse__close:active,
+.btn-browse_close:active,
+.btn-edit__edit:active,
+.btn-edit_edit:active,
+.btn-edit__delete:active,
+.btn-edit_delete:active,
+.btn-edit__close:active,
+.btn-edit_close:active {
+  background-color: #565EEF !important;
+  color: #FFFFFF !important;
+  border-color: #565EEF !important;
+}
+
+.btn-browse__edit:active span,
+.btn-browse_edit:active span,
+.btn-browse__delete:active span,
+.btn-browse_delete:active span,
+.btn-browse__close:active span,
+.btn-browse_close:active span,
+.btn-edit__edit:active span,
+.btn-edit_edit:active span,
+.btn-edit__delete:active span,
+.btn-edit_delete:active span,
+.btn-edit__close:active span,
+.btn-edit_close:active span {
+  color: #FFFFFF !important;
+}
+
+.pop-new-card__calendar {
+  width: 182px;
+  height: 180px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+/* Зачеркивание названий задач в колонке "ГОТОВО" */
+.column[data-status="Готово"] .card__title,
+.column[data-status="Готово"] .card__ttl {
+  text-decoration-line: line-through;
 }
 
 @media screen and (max-width: 660px) {
