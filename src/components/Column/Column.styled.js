@@ -31,10 +31,25 @@ export const CardsContainer = styled.div`
   width: 100%;
   display: block;
   position: relative;
+  min-height: 200px;
+  border: 2px dashed transparent;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #e0e0e0;
+  }
+  
+  &.drag-over {
+    border-color: #94A6BE;
+    background-color: rgba(148, 166, 190, 0.1);
+    padding: 10px;
+  }
   
   @media screen and (max-width: 1200px) {
     width: 100%;
     display: flex;
     overflow-y: auto;
+    min-height: 150px;
   }
-` 
+`

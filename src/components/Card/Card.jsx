@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     CardButton,
@@ -11,8 +11,9 @@ import {
     CardTitle
 } from './Card.styled'
 
-function Card({ theme, title, category, date, taskId, onCardClick, isCompleted = false, task }) {
+function Card({ theme, title, category, date, taskId, onCardClick, isCompleted = false, task, onDragStart }) {
   const navigate = useNavigate()
+  const [isDragging, setIsDragging] = useState(false)
 
   const handleCardClick = () => {
     if (onCardClick) {
@@ -31,6 +32,22 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
     }
   }
 
+  const handleDragStart = (e) => {
+    setIsDragging(true)
+    e.dataTransfer.setData('text/plain', JSON.stringify({
+      id: taskId,
+      task: task
+    }))
+    e.dataTransfer.effectAllowed = 'move'
+    if (onDragStart) {
+      onDragStart(task)
+    }
+  }
+
+  const handleDragEnd = () => {
+    setIsDragging(false)
+  }
+
   const getThemeClass = (theme) => {
     if (!theme) return 'default'
     const themeLower = theme.toLowerCase()
@@ -43,7 +60,17 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
   const themeClass = getThemeClass(theme)
 
   return (
-    <CardItem onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+    <CardItem 
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onClick={handleCardClick}
+      style={{ 
+        cursor: 'move',
+        opacity: isDragging ? 0.5 : 1,
+        transition: 'opacity 0.2s ease'
+      }}
+    >
       <CardContainer>
         <CardGroup>
           <CardTheme className={`_${themeClass}`}>
@@ -76,4 +103,4 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
   )
 }
 
-export default Card 
+export default Card
