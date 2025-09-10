@@ -4,6 +4,10 @@ export const HeaderContainer = styled.header`
   width: 100%;
   margin: 0 auto;
   background-color: #FFFFFF;
+  
+  ${props => props.$isDark && `
+    background-color: rgba(32, 32, 44, 1);
+  `}
 `
 
 export const HeaderBlock = styled.div`
@@ -83,6 +87,15 @@ export const HeaderUser = styled.a`
     margin: -6px 0 0 5px;
     padding: 0;
   }
+  
+  ${props => props.$isDark && `
+    color: rgba(255, 255, 255, 1);
+    
+    &::after {
+      border-left-color: rgba(255, 255, 255, 1);
+      border-bottom-color: rgba(255, 255, 255, 1);
+    }
+  `}
 `
 
 export const HeaderPopUserSet = styled.div`
@@ -99,4 +112,4 @@ export const HeaderPopUserSet = styled.div`
   padding: 34px;
   text-align: center;
   z-index: 2;
-` 
+`

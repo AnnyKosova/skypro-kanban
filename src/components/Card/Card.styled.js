@@ -18,6 +18,10 @@ export const CardContainer = styled.div`
   justify-content: stretch;
   padding: 15px 13px 19px;
   
+  ${props => props.$isDark && `
+    background-color: rgba(32, 32, 44, 1);
+  `}
+  
   @media screen and (max-width: 1200px) {
     width: 220px;
     height: 130px;
@@ -28,6 +32,10 @@ export const CardContainer = styled.div`
     align-items: flex-start;
     justify-content: stretch;
     padding: 15px 13px 19px;
+    
+    ${props => props.$isDark && `
+      background-color: rgba(32, 32, 44, 1);
+    `}
   }
 `
 
@@ -75,6 +83,10 @@ export const CardTitle = styled.h3`
   line-height: 18px;
   color: #000000;
   margin-bottom: 10px;
+  
+  ${props => props.$isDark && `
+    color: rgba(255, 255, 255, 1);
+  `}
 `
 
 export const CardContent = styled.div`
@@ -101,4 +113,4 @@ export const CardDate = styled.div`
     color: #94A6BE;
     letter-spacing: 0.2px;
   }
-` 
+`

@@ -5,10 +5,10 @@ export const LoginContainer = styled.div`
   height: ${props => props.$hasError ? '390px' : '329px'};
   padding: 50px 60px 50px 60px;
   box-sizing: border-box;
-  border: 0.7px solid rgba(212, 219, 229, 1);
+  border: 0.7px solid ${props => props.$isDark ? 'rgba(78, 85, 102, 1)' : 'rgba(212, 219, 229, 1)'};
   border-radius: 10px;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-  background: rgba(255, 255, 255, 1);
+  background: ${props => props.$isDark ? 'rgba(32, 32, 44, 1)' : 'rgba(255, 255, 255, 1)'};
   margin: 0 auto;
   margin-top: 100px;
   display: flex;
@@ -17,7 +17,7 @@ export const LoginContainer = styled.div`
 `
 
 export const LoginTitle = styled.h1`
-  color: rgba(0, 0, 0, 1);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(0, 0, 0, 1)'};
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -48,7 +48,8 @@ export const LoginInput = styled.input`
   line-height: 150%;
   letter-spacing: -2%;
   text-align: left;
-  color: rgba(0, 0, 0, 1);
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(0, 0, 0, 1)'};
+  background: ${props => props.$isDark ? 'rgba(32, 32, 44, 1)' : 'rgba(255, 255, 255, 1)'};
   
   &::placeholder {
     color: rgba(148, 166, 190, 1);
@@ -133,4 +134,4 @@ export const LoginLinks = styled.div`
       opacity: 0.8;
     }
   }
-` 
+`

@@ -140,7 +140,6 @@ function PopBrowse({ isOpen, onClose, task, onEdit, onDelete }) {
               <div className="pop-browse__top-block">
                 {isEditing ? (
                   <h3 className="pop-browse__ttl" style={{
-                    color: 'rgba(0, 0, 0, 1)',
                     fontFamily: 'Roboto',
                     fontSize: '20px',
                     fontWeight: '400',
@@ -233,31 +232,31 @@ function PopBrowse({ isOpen, onClose, task, onEdit, onDelete }) {
               {!isEditing ? (
                 <div className="pop-browse__btn-browse">
                   <div className="btn-group">
-                    <button className="btn-browse__edit _btn-bor _hover03" onClick={handleEditClick} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                    <button className="btn-browse__edit _btn-bor _hover03" onClick={handleEditClick}>
                       <span>Редактировать задачу</span>
                     </button>
-                    <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDeleteClick} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                    <button className="btn-browse__delete _btn-bor _hover03" onClick={handleDeleteClick}>
                       <span>Удалить задачу</span>
                     </button>
                   </div>
-                  <button className="btn-browse__close _btn-bor _hover03" onClick={handleClose} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                  <button className="btn-browse__close _btn-bor _hover03" onClick={handleClose}>
                     <span>Закрыть</span>
                   </button>
                 </div>
               ) : (
                 <div className="pop-browse__btn-edit">
                   <div className="btn-group">
-                    <button className="btn-edit__edit _btn-bor _hover03" onClick={handleSave} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                    <button className="btn-edit__edit _btn-bor _hover03" onClick={handleSave}>
                       <span>Сохранить</span>
                     </button>
-                    <button className="btn-edit__edit _btn-bor _hover03" onClick={handleCancel} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                    <button className="btn-edit__edit _btn-bor _hover03" onClick={handleCancel}>
                       <span>Отменить</span>
                     </button>
-                    <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete" onClick={handleDeleteClick} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                    <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete" onClick={handleDeleteClick}>
                       <span>Удалить задачу</span>
                     </button>
                   </div>
-                  <button className="btn-edit__close _btn-bor _hover03" onClick={handleClose} style={{ color: 'rgba(86, 94, 239, 1)' }}>
+                  <button className="btn-edit__close _btn-bor _hover03" onClick={handleClose}>
                     <span>Закрыть</span>
                   </button>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 import {
     CardButton,
     CardContainer,
@@ -13,6 +14,7 @@ import {
 
 function Card({ theme, title, category, date, taskId, onCardClick, isCompleted = false, task, onDragStart }) {
   const navigate = useNavigate()
+  const { isDark } = useTheme()
   const [isDragging, setIsDragging] = useState(false)
 
   const handleCardClick = () => {
@@ -66,12 +68,12 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
       onDragEnd={handleDragEnd}
       onClick={handleCardClick}
       style={{ 
-        cursor: 'move',
+        cursor: 'pointer',
         opacity: isDragging ? 0.5 : 1,
         transition: 'opacity 0.2s ease'
       }}
     >
-      <CardContainer>
+      <CardContainer $isDark={isDark}>
         <CardGroup>
           <CardTheme className={`_${themeClass}`}>
             <p>{theme || category}</p>
@@ -84,7 +86,7 @@ function Card({ theme, title, category, date, taskId, onCardClick, isCompleted =
         </CardGroup>
         <CardContent>
           <div>
-            <CardTitle style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>
+            <CardTitle $isDark={isDark} style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>
               {title}
             </CardTitle>
           </div>

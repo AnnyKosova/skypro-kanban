@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { useTheme } from '../contexts/ThemeContext'
 import {
     ErrorMessage,
     RegisterButton,
@@ -20,6 +21,7 @@ function RegisterPage() {
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const { register } = useAuth()
+  const { isDark } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
@@ -109,8 +111,8 @@ function RegisterPage() {
   }
 
   return (
-    <RegisterContainer hasError={hasGeneralError}>
-      <RegisterTitle>Регистрация</RegisterTitle>
+    <RegisterContainer hasError={hasGeneralError} $isDark={isDark}>
+      <RegisterTitle $isDark={isDark}>Регистрация</RegisterTitle>
       
       <RegisterForm onSubmit={handleSubmit}>
         <RegisterInput 
@@ -120,6 +122,7 @@ function RegisterPage() {
           value={formData.login}
           onChange={handleChange}
           hasError={!!errors.login}
+          $isDark={isDark}
         />
         <RegisterInput 
           type="text" 
@@ -128,6 +131,7 @@ function RegisterPage() {
           value={formData.name}
           onChange={handleChange}
           hasError={!!errors.name}
+          $isDark={isDark}
         />
         <RegisterInput 
           type="password" 
@@ -136,6 +140,7 @@ function RegisterPage() {
           value={formData.password}
           onChange={handleChange}
           hasError={!!errors.password}
+          $isDark={isDark}
         />
         {hasGeneralError && <ErrorMessage>{getErrorMessage()}</ErrorMessage>}
         <RegisterButton 
@@ -154,4 +159,4 @@ function RegisterPage() {
   )
 }
 
-export default RegisterPage 
+export default RegisterPage

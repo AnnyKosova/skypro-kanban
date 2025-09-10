@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Main from '../components/Main/Main'
 import PopBrowse from '../components/popups/PopBrowse/PopBrowse'
+import PopExitComponent from '../components/popups/PopExit/PopExit'
 import { useAuth } from '../hooks/useAuth'
 import { useTasks } from '../hooks/useTasks'
 
@@ -10,6 +11,7 @@ function HomePage() {
   const { user, logout } = useAuth()
   const { updateTask, deleteTask, tasks } = useTasks()
   const [isPopBrowseOpen, setIsPopBrowseOpen] = useState(false)
+  const [isPopExitOpen, setIsPopExitOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState(null)
   
   const navigate = useNavigate()
@@ -85,7 +87,17 @@ function HomePage() {
   }
 
   const handleExitClick = () => {
+    navigate("/exit")
+    setIsPopExitOpen(true)
+  }
+
+  const handleClosePopExit = () => {
+    setIsPopExitOpen(false)
+  }
+
+  const handleLogout = () => {
     logout()
+    setIsPopExitOpen(false)
   }
 
   return (
@@ -104,10 +116,16 @@ function HomePage() {
         onDelete={handleDeleteTask}
       />
       
+      <PopExitComponent 
+        isOpen={isPopExitOpen}
+        onClose={handleClosePopExit}
+        onLogout={handleLogout}
+      />
+      
       <Header user={user} onExitClick={handleExitClick} />
       <Main onCardClick={handleCardClick} />
     </div>
   )
 }
 
-export default HomePage 
+export default HomePage

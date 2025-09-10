@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
+import { useTheme } from '../../contexts/ThemeContext'
 import { Container } from '../../App.styled'
 import { useTasks } from '../../hooks/useTasks'
+import Loader from '../Loader/Loader'
 import Card from '../Card/Card'
 import Column from '../Column/Column'
 import {
@@ -12,6 +14,7 @@ import {
 
 function Main({ onCardClick }) {
   const { tasks, isLoading, error, updateTaskStatus } = useTasks()
+  const { isDark } = useTheme()
 
   const handleTaskDrop = async (taskId, newStatus) => {
     await updateTaskStatus(taskId, newStatus)
@@ -33,12 +36,10 @@ function Main({ onCardClick }) {
 
   if (isLoading) {
     return (
-      <MainContainer>
+      <MainContainer $isDark={isDark}>
         <Container>
           <MainBlock>
-            <LoadingContainer>
-              Данные загружаются
-            </LoadingContainer>
+            <Loader />
           </MainBlock>
         </Container>
       </MainContainer>
@@ -47,7 +48,7 @@ function Main({ onCardClick }) {
 
   if (error) {
     return (
-      <MainContainer>
+      <MainContainer $isDark={isDark}>
         <Container>
           <MainBlock>
             <LoadingContainer>
@@ -60,7 +61,7 @@ function Main({ onCardClick }) {
   }
 
   return (
-    <MainContainer>
+    <MainContainer $isDark={isDark}>
       <Container>
         <MainBlock>
           <MainContent>
@@ -161,4 +162,4 @@ function Main({ onCardClick }) {
   )
 }
 
-export default Main 
+export default Main
