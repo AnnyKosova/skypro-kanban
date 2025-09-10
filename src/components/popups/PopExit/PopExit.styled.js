@@ -104,6 +104,24 @@ export const PopExitButtonYes = styled.button`
     text-decoration: none;
   }
   
+  &:hover {
+    background-color: rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  &:active {
+    background-color: rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }  }
+  
   @media only screen and (max-width: 375px) {
     width: 100%;
     height: 40px;
@@ -141,8 +159,161 @@ export const PopExitButtonNo = styled.button`
     text-decoration: none;
   }
   
+  &:hover {
+    background-color: rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  &:active {
+    background-color: rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }  }
+  
   @media only screen and (max-width: 375px) {
     width: 100%;
     height: 40px;
   }
 ` 
+// Темная тема для PopExitBlock
+export const PopExitBlockDark = styled.div`
+  width: 100%;
+  max-width: 400px;
+  padding: 50px 60px;
+  border-radius: 10px;
+  border: 0.7px solid rgba(78, 85, 102, 1);
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background-color: rgba(32, 32, 44, 1);
+  
+  @media only screen and (max-width: 375px) {
+    padding: 50px 20px;
+  }
+`
+
+// Темная тема для PopExitTitle
+export const PopExitTitleDark = styled.div`
+  h2 {
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: -2%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+`
+
+// Темная тема для PopExitButtonYes
+export const PopExitButtonYesDark = styled.button`
+  width: 153px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 0.7px solid rgba(255, 255, 255, 1);
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  margin-right: 7px;
+  transition: all 0.3s;
+  
+  a {
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  &:hover {
+    background-color: rgba(86, 94, 239, 1);
+    border: 0.7px solid rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  &:active {
+    background-color: rgba(86, 94, 239, 1);
+    border: 0.7px solid rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+`
+
+// Темная тема для PopExitButtonNo
+export const PopExitButtonNoDark = styled.button`
+  width: 153px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 0.7px solid rgba(255, 255, 255, 1);
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -1%;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  
+  a {
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &:hover {
+    background-color: rgba(86, 94, 239, 1);
+    border: 0.7px solid rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  &:active {
+    background-color: rgba(86, 94, 239, 1);
+    border: 0.7px solid rgba(86, 94, 239, 1);
+    color: rgba(255, 255, 255, 1);
+    
+    a {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    width: 100%;
+    height: 40px;
+  }
+`

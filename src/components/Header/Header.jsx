@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 import { Container } from '../../App.styled'
 import PopUser from '../popups/PopUser/PopUser'
 import {
@@ -11,8 +12,9 @@ import {
     HeaderUser
 } from './Header.styled'
 
-function Header({ user }) {
+function Header({ user, onExitClick }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false)
+  const { isDark } = useTheme()
   const navigate = useNavigate()
 
   const handleUserClick = (e) => {
@@ -44,7 +46,7 @@ function Header({ user }) {
   }, [isUserPopupOpen])
 
   return (
-    <HeaderContainer>
+    <HeaderContainer $isDark={isDark}>
       <Container>
         <HeaderBlock>
           <HeaderLogo className="_show _light">
@@ -57,10 +59,10 @@ function Header({ user }) {
             <HeaderButton className="_hover01" id="btnMainNew" onClick={handleNewTaskClick}>
               <a href="#" onClick={(e) => e.preventDefault()}>Создать новую задачу</a>
             </HeaderButton>
-            <HeaderUser href="#user-set-target" className="_hover02" onClick={handleUserClick}>
+            <HeaderUser href="#user-set-target" className="_hover02" onClick={handleUserClick} $isDark={isDark}>
               {user ? user.name : 'Гость'}
             </HeaderUser>
-            <PopUser isOpen={isUserPopupOpen} onExitClick={() => navigate('/exit')} user={user} />
+            <PopUser isOpen={isUserPopupOpen} user={user} onExitClick={onExitClick} />
           </HeaderNav>
         </HeaderBlock>
       </Container>			
@@ -68,4 +70,4 @@ function Header({ user }) {
   )
 }
 
-export default Header 
+export default Header

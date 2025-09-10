@@ -8,9 +8,9 @@ export const PopUserSet = styled.div`
   width: 213px;
   height: 205px;
   border-radius: 10px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #FFF;
-  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
+  border: 0.7px solid ${props => props.$isDark ? 'rgba(78, 85, 102, 1)' : 'rgba(148, 166, 190, 0.4)'};
+  background: ${props => props.$isDark ? 'rgba(32, 34, 41, 1)' : '#FFF'};
+  box-shadow: ${props => props.$isDark ? '0px 10px 39px 0px rgba(148, 166, 190, 0.4)' : '0px 10px 39px 0px rgba(26, 56, 101, 0.21)'};
   padding: 34px;
   text-align: center;
   z-index: 2;
@@ -20,15 +20,24 @@ export const PopUserSetName = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
-  color: #000;
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : '#000'};
   margin-bottom: 10px;
 `
 
 export const PopUserSetMail = styled.div`
   font-size: 14px;
   line-height: 21px;
-  color: #94A6BE;
+  color: ${props => props.$isDark ? 'rgba(148, 166, 190, 1)' : '#94A6BE'};
   margin-bottom: 20px;
+  
+  ${props => props.$isDark && `
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -1%;
+    text-align: center;
+  `}
 `
 
 export const PopUserSetTheme = styled.div`
@@ -40,7 +49,7 @@ export const PopUserSetTheme = styled.div`
   p {
     font-size: 14px;
     line-height: 21px;
-    color: #000;
+    color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : '#000'};
   }
   
   input[type="checkbox"] {
@@ -81,25 +90,37 @@ export const PopUserSetButton = styled.button`
   height: 30px;
   background: transparent;
   border-radius: 4px;
-  border: 1px solid #565EEF;
-  color: #565EEF;
+  border: 1px solid ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : '#565EEF'};
+  color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : '#565EEF'};
   font-size: 14px;
   line-height: 1;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
+  box-sizing: border-box;
   
   a {
-    color: #565EEF;
+    color: ${props => props.$isDark ? 'rgba(255, 255, 255, 1)' : '#565EEF'};
     text-decoration: none;
   }
   
   &:hover {
-    background: #565EEF;
+    background: ${props => props.$isDark ? 'rgba(86, 94, 239, 1)' : '#565EEF'};
+    border-color: rgba(86, 94, 239, 1);
     color: white;
     
     a {
       color: white;
     }
   }
-` 
+  
+  &:active {
+    background: ${props => props.$isDark ? 'rgba(86, 94, 239, 1)' : '#565EEF'};
+    border-color: rgba(86, 94, 239, 1);
+    color: white;
+    
+    a {
+      color: white;
+    }
+  }
+`

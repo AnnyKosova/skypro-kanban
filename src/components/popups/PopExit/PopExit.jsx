@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTheme } from '../../../contexts/ThemeContext'
 import {
     PopExit,
     PopExitBlock,
@@ -6,10 +7,15 @@ import {
     PopExitButtonYes,
     PopExitContainer,
     PopExitForm,
-    PopExitTitle
+    PopExitTitle,
+    PopExitBlockDark,
+    PopExitTitleDark,
+    PopExitButtonYesDark,
+    PopExitButtonNoDark
 } from './PopExit.styled'
 
 function PopExitComponent({ isOpen, onClose, onLogout }) {
+  const { isDark } = useTheme()
   const exitPopupStyle = {
     display: isOpen ? 'block' : 'none'
   }
@@ -29,22 +35,38 @@ function PopExitComponent({ isOpen, onClose, onLogout }) {
   return (
     <PopExit id="popExit" style={exitPopupStyle}>
       <PopExitContainer>
-        <PopExitBlock>
-          <PopExitTitle>
-            <h2>Выйти из аккаунта?</h2>
-          </PopExitTitle>
-          <PopExitForm id="formExit" action="#">
-            <PopExitButtonYes className="_hover01" id="exitYes" onClick={handleExitYes}>
-              <a href="#" onClick={(e) => e.preventDefault()}>Да, выйти</a>
-            </PopExitButtonYes>
-            <PopExitButtonNo className="_hover03" id="exitNo" onClick={handleExitNo}>
-              <a href="#" onClick={(e) => e.preventDefault()}>Нет, остаться</a>
-            </PopExitButtonNo>
-          </PopExitForm>
-        </PopExitBlock>
+        {isDark ? (
+          <PopExitBlockDark>
+            <PopExitTitleDark>
+              <h2>Выйти из аккаунта?</h2>
+            </PopExitTitleDark>
+            <PopExitForm id="formExit" action="#">
+              <PopExitButtonYesDark className="_hover01" id="exitYes" onClick={handleExitYes}>
+                <a href="#" onClick={(e) => e.preventDefault()}>Да, выйти</a>
+              </PopExitButtonYesDark>
+              <PopExitButtonNoDark className="_hover03" id="exitNo" onClick={handleExitNo}>
+                <a href="#" onClick={(e) => e.preventDefault()}>Нет, остаться</a>
+              </PopExitButtonNoDark>
+            </PopExitForm>
+          </PopExitBlockDark>
+        ) : (
+          <PopExitBlock>
+            <PopExitTitle>
+              <h2>Выйти из аккаунта?</h2>
+            </PopExitTitle>
+            <PopExitForm id="formExit" action="#">
+              <PopExitButtonYes className="_hover01" id="exitYes" onClick={handleExitYes}>
+                <a href="#" onClick={(e) => e.preventDefault()}>Да, выйти</a>
+              </PopExitButtonYes>
+              <PopExitButtonNo className="_hover03" id="exitNo" onClick={handleExitNo}>
+                <a href="#" onClick={(e) => e.preventDefault()}>Нет, остаться</a>
+              </PopExitButtonNo>
+            </PopExitForm>
+          </PopExitBlock>
+        )}
       </PopExitContainer>
     </PopExit>
   )
 }
 
-export default PopExitComponent 
+export default PopExitComponent

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { useTheme } from '../contexts/ThemeContext'
 import {
     ErrorMessage,
     LoginButton,
@@ -20,6 +21,7 @@ function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   
   const { login } = useAuth()
+  const { isDark } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
   
@@ -60,8 +62,8 @@ function LoginPage() {
   }
 
   return (
-    <LoginContainer $hasError={!!error}>
-      <LoginTitle>Вход</LoginTitle>
+    <LoginContainer $hasError={!!error} $isDark={isDark}>
+      <LoginTitle $isDark={isDark}>Вход</LoginTitle>
       
       <LoginForm onSubmit={handleSubmit}>
         <LoginInput 
@@ -71,6 +73,7 @@ function LoginPage() {
           value={formData.login}
           onChange={handleChange}
           $hasError={!!error}
+          $isDark={isDark}
         />
         <LoginInput 
           type="password" 
@@ -79,6 +82,7 @@ function LoginPage() {
           value={formData.password}
           onChange={handleChange}
           $hasError={!!error}
+          $isDark={isDark}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <LoginButton 
@@ -97,4 +101,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage 
+export default LoginPage
